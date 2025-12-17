@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>byMedina</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
+    :root{
+      --font-inter: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --font-instrument: "Instrument Serif", ui-serif, Georgia, "Times New Roman", Times, serif;
+      --font-cal: "Cal Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    .font-inter { font-family: var(--font-inter); }
+    .font-instrument { font-family: var(--font-instrument); }
+    .font-cal { font-family: var(--font-cal); }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBlue: "#3d68d9"
+          },
+          boxShadow: {
+            soft: "0 30px 80px rgba(0,0,0,.35)",
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-[#0b1220] text-white font-inter">
+  <!-- FULL SCREEN HERO -->
+  <section class="relative h-screen w-screen overflow-hidden">
+    <!-- Background -->
+    <div class="absolute inset-0">
+      <img src="hero-bg.png" alt="" class="h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-[#3d68d9]/55"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-white/0 via-black/10 to-[#0b1220]/55"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-20">
+      <div class="mx-auto max-w-[1240px] px-5 sm:px-6">
+        <div class="flex h-[78px] items-center justify-between">
+          <!-- Logo -->
+<a href="/" class="flex items-center gap-2">
+  <img
+    src="logo.png"
+    alt="byMedina logo"
+    class="h-7 w-auto"
+  />
+  <span class="font-cal text-[15px] text-white/90">byMedina</span>
+</a>
+
+
+          <!-- Desktop Nav -->
+          <nav class="hidden md:flex items-center gap-8 text-[15px] font-normal text-white/80">
+            <a class="hover:text-white transition" href="#">Home</a>
+            <a class="hover:text-white transition" href="#">About</a>
+            <a class="hover:text-white transition" href="#">Services</a>
+            <a class="hover:text-white transition" href="#">Portfolio</a>
+            <a class="hover:text-white transition" href="#">Resources</a>
+            <a class="hover:text-white transition" href="#">Contact</a>
+          </nav>
+
+          <!-- Right actions -->
+          <div class="flex items-center gap-3">
+            <!-- Desktop CTA -->
+            <a
+              href="#"
+              class="hidden md:inline-flex text-[15px] font-normal rounded-xl bg-white px-4 py-2 text-[#2a4db7] shadow-sm hover:bg-white/90 transition"
+            >
+              Schedule a call
+            </a>
+
+            <!-- Burger (mobile) -->
+            <button
+              id="burgerBtn"
+              class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 hover:bg-white/15 transition"
+              aria-label="Open menu"
+              aria-expanded="false"
+              aria-controls="mobileMenu"
+            >
+              <!-- hamburger icon -->
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile menu (dropdown) -->
+        <div
+          id="mobileMenu"
+          class="md:hidden hidden mt-2 rounded-2xl border border-white/10 bg-[#0b1220]/70 backdrop-blur-xl p-3"
+        >
+          <nav class="flex flex-col gap-1 text-[15px] font-normal text-white/85">
+            <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#">Home</a>
+            <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#">About</a>
+            <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#">Services</a>
+            <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#">Portfolio</a>
+            <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#">Resources</a>
+            <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#">Contact</a>
+
+            <a
+              href="#"
+              class="mt-2 inline-flex justify-center rounded-xl bg-white px-4 py-2 text-[#2a4db7] shadow-sm hover:bg-white/90 transition"
+            >
+              Schedule a call
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Text -->
+    <div class="relative z-10">
+      <div class="mx-auto max-w-[1240px] px-5 sm:px-6">
+        <div class="flex flex-col items-center text-center pt-[8vh] sm:pt-[9vh]">
+          <!-- Responsive headline sizes -->
+          <h1 class="font-cal text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[64px]">
+            Jaden Medina,
+          </h1>
+
+          <p class="mt-2 font-instrument italic text-[40px] leading-[1.05] tracking-[-0.02em] text-white/95 sm:text-[52px] md:text-[64px]">
+            Designing Success Stories.
+          </p>
+
+          <p class="mt-5 sm:mt-6 max-w-[760px] text-[14px] sm:text-[16px] font-medium leading-[1.65] text-white/85 px-2 sm:px-0">
+            Jaden Medina is a Framer web designer specializing in sleek, high-converting websites. Wherever
+            you are, he’s ready to elevate your brand with modern design that performs.
+          </p>
+
+          <div class="mt-7 sm:mt-8 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto px-6 sm:px-0">
+            <a
+              href="#"
+              class="w-full sm:w-auto text-center text-[15px] font-normal rounded-xl bg-[#2f57d6] px-5 py-2.5 text-white shadow-sm hover:bg-[#2a4db7] transition"
+            >
+              Explore my work
+            </a>
+            <a
+              href="#"
+              class="w-full sm:w-auto text-center text-[15px] font-normal rounded-xl bg-white px-5 py-2.5 text-[#2a4db7] shadow-sm hover:bg-white/90 transition"
+            >
+              Schedule a call
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom mockup (MOVED UP) -->
+    <!-- key change: bottom is less negative + responsive -->
+    <div class="absolute left-1/2 bottom-[-8vh] sm:bottom-[-10vh] md:bottom-[-12vh] z-10 w-[min(1200px,94vw)] -translate-x-1/2">
+      <img
+        src="hero-mockup.png"
+        alt="byMedina mockup"
+        class="w-full h-auto block drop-shadow-2xl"
+      />
+    </div>
+
+    <!-- Bottom fade -->
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-[22vh] bg-gradient-to-t from-[#0b1220] via-[#0b1220]/60 to-transparent"></div>
+  </section>
+
+<!-- ABOUT SECTION (redesigned like your screenshot) -->
+<section id="about" class="bg-[#0b1220] py-16 sm:py-20">
+  <div class="mx-auto max-w-[1540px] px-4 sm:px-6 lg:px-8">
+
+    <!-- Blue card -->
+    <div class="rounded-3xl bg-[#456AAE] p-6 sm:p-8 lg:p-10 shadow-[0_30px_90px_rgba(0,0,0,.35)]">
+      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <!-- LEFT -->
+        <div>
+          <!-- pill -->
+          <span class="inline-flex items-center rounded-full bg-white px-3 py-1 font-inter text-[12px] font-medium text-[#2a4db7]">
+            About Me
+          </span>
+
+          <!-- Title (same properties as hero title: Cal Sans) -->
+          <h2 class="mt-5 font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
+            Meet Jaden Medina -<br />
+            Your Dedicated Framer<br />
+            Web Designer
+          </h2>
+
+          <!-- Subtitle/body (Inter Medium 16px like your hero paragraph) -->
+          <p class="mt-5 font-inter text-[16px] font-medium leading-[1.7] text-white/85 max-w-[520px]">
+            Looking to build a high-converting Framer website without the hassle of clunky templates or slow edits?
+            Work with me — Jaden Medina, your go-to Framer website designer. I craft fast, scalable, and interactive
+            websites that blend strategy, design, and performance.
+          </p>
+
+          <p class="mt-4 font-inter text-[16px] font-medium leading-[1.7] text-white/85 max-w-[520px]">
+            As a Framer expert, I focus on user experience and conversion — not just visuals. Let’s create a website
+            that stands out and drives results.
+          </p>
+
+          <!-- Social buttons (white squares like your screenshot) -->
+          <div class="mt-7 flex items-center gap-3">
+            <a href="#" class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-black/70 hover:opacity-90 transition">
+              <span class="font-inter text-[14px] font-medium">Be</span>
+            </a>
+
+            <a href="#" class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-black/70 hover:opacity-90 transition">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M4.3 7.2c3.7 2.6 8.5 4.1 14.9 3.9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M5.2 16.8c2.4-4.4 6.9-8.9 12.6-11.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M10.3 21.7c-.2-4.6 1.2-10.2 5.2-15.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a href="#" class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-black/70 hover:opacity-90 transition">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6.5 9.5V18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M10.5 18v-5.2c0-1.7 1-3 2.7-3 1.8 0 2.8 1.3 2.8 3V18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10.5 12.2V18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+            <a href="#" class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-black/70 hover:opacity-90 transition">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4.5 7.5h15v10h-15z" stroke="currentColor" stroke-width="1.8" />
+                <path d="M5.2 8.2 12 13l6.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="lg:pl-6">
+<div class="relative overflow-hidden rounded-2xl bg-black/10 aspect-[4/3] sm:aspect-[3/2]">
+  <img
+    src="about-photo.png"
+    alt="Jaden Medina"
+    class="absolute inset-0 h-full w-full object-cover object-center"
+  />
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO / WORK (Premium: transform-based, drag, snap, infinite loop, starts on slide 2) -->
+<section id="portfolio" class="bg-[#0b1220] py-16 sm:py-20">
+  <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="max-w-[780px]">
+      <h2 class="font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
+        Building Websites That<br class="hidden sm:block" />
+        Drive Results
+      </h2>
+      <p class="mt-4 font-inter text-[16px] font-medium leading-[1.7] text-white/75">
+        Click + drag (or swipe) through projects. It loops infinitely and always snaps perfectly centered.
+      </p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="mt-10">
+      <div id="premCarousel" class="relative overflow-hidden select-none">
+        <!-- Track -->
+        <div
+          id="premTrack"
+          class="flex items-stretch gap-10 px-4 sm:px-6 lg:px-8 will-change-transform"
+          style="transform: translate3d(0,0,0); touch-action: pan-y;"
+        >
+          <!-- SLIDE 1 -->
+          <article class="prem-slide shrink-0 w-[86vw] sm:w-[520px] lg:w-[560px] transition-transform duration-300 will-change-transform">
+            <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-black/10">
+              <img src="project1.png" alt="Project 1"
+                class="absolute inset-0 h-full w-full object-contain object-center p-4 sm:p-5" />
+              <div class="pointer-events-none absolute inset-0 ring-1 ring-white/10"></div>
+            </div>
+            <div class="mt-5">
+              <p class="font-inter text-[14px] font-medium text-white/60">Landing Page</p>
+              <h3 class="mt-1 font-cal text-[22px] leading-[1.15] text-white">DeFi Product — Home Experience</h3>
+              <p class="mt-2 font-inter text-[15px] font-medium leading-[1.6] text-white/70">
+                Sleek, conversion-focused layout with premium UI and fast performance.
+              </p>
+            </div>
+          </article>
+
+          <!-- SLIDE 2 -->
+          <article class="prem-slide shrink-0 w-[86vw] sm:w-[520px] lg:w-[560px] transition-transform duration-300 will-change-transform">
+            <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-black/10">
+              <img src="project1.png" alt="Project 2"
+                class="absolute inset-0 h-full w-full object-contain object-center p-4 sm:p-5" />
+              <div class="pointer-events-none absolute inset-0 ring-1 ring-white/10"></div>
+            </div>
+            <div class="mt-5">
+              <p class="font-inter text-[14px] font-medium text-white/60">Website</p>
+              <h3 class="mt-1 font-cal text-[22px] leading-[1.15] text-white">Portfolio — Case Study Layout</h3>
+              <p class="mt-2 font-inter text-[15px] font-medium leading-[1.6] text-white/70">
+                Clean structure, readable sections, and strong visual hierarchy.
+              </p>
+            </div>
+          </article>
+
+          <!-- SLIDE 3 -->
+          <article class="prem-slide shrink-0 w-[86vw] sm:w-[520px] lg:w-[560px] transition-transform duration-300 will-change-transform">
+            <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-black/10">
+              <img src="project1.png" alt="Project 3"
+                class="absolute inset-0 h-full w-full object-contain object-center p-4 sm:p-5" />
+              <div class="pointer-events-none absolute inset-0 ring-1 ring-white/10"></div>
+            </div>
+            <div class="mt-5">
+              <p class="font-inter text-[14px] font-medium text-white/60">Framer Build</p>
+              <h3 class="mt-1 font-cal text-[22px] leading-[1.15] text-white">App Launch — Visual System</h3>
+              <p class="mt-2 font-inter text-[15px] font-medium leading-[1.6] text-white/70">
+                Modern visuals that feel premium, cohesive, and built to convert.
+              </p>
+            </div>
+          </article>
+
+          <!-- Add more slides as needed -->
+        </div>
+
+        <!-- Dots -->
+        <div id="premDots" class="mt-6 flex items-center justify-center gap-2"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- PROCESS (same byMedina style) -->
+<section id="process" class="bg-[#0b1220] py-16 sm:py-20">
+  <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+    <!-- Blue card wrapper to match your site sections -->
+    <div class="rounded-3xl bg-[#456AAE] px-8 py-10 sm:px-12 sm:py-12 lg:px-16 lg:py-14 shadow-[0_30px_90px_rgba(0,0,0,.35)]">
+      <!-- Header -->
+      <div class="max-w-[760px]">
+        <span class="inline-flex items-center rounded-full bg-white px-3 py-1 font-inter text-[12px] font-medium text-[#2a4db7]">
+          An Example Framer Project
+        </span>
+
+        <h2 class="mt-4 font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
+          Smooth &amp; Efficient<br class="hidden sm:block" />
+          Process
+        </h2>
+      </div>
+
+      <!-- Cards -->
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        <!-- Card 1 -->
+        <article class="rounded-3xl bg-white/95 p-7 shadow-[0_20px_60px_rgba(0,0,0,.20)]">
+          <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-black/5 font-inter text-[12px] font-semibold text-black/70">
+            01
+          </span>
+
+          <h3 class="mt-4 font-cal text-[28px] leading-[1.1] tracking-[-0.02em] text-[#0b1220]">
+            Discovery &amp;<br />
+            Strategy
+          </h3>
+
+          <p class="mt-4 font-inter text-[15px] font-medium leading-[1.7] text-black/60">
+            We align on goals, audience, and the offer. You’ll get a clear plan for structure, messaging, and what needs to
+            happen for the site to convert.
+          </p>
+
+          <div class="mt-6">
+            <!-- Replace with your image -->
+            <div class="relative overflow-hidden rounded-2xl bg-black/5 aspect-[16/10]">
+              <img
+                src="process-1.png"
+                alt="Discovery & Strategy"
+                class="absolute inset-0 h-full w-full object-cover object-center"
+              />
+              <div class="pointer-events-none absolute inset-0 ring-1 ring-black/10"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="rounded-3xl bg-white/95 p-7 shadow-[0_20px_60px_rgba(0,0,0,.20)]">
+          <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-black/5 font-inter text-[12px] font-semibold text-black/70">
+            02
+          </span>
+
+          <h3 class="mt-4 font-cal text-[28px] leading-[1.1] tracking-[-0.02em] text-[#0b1220]">
+            Design<br />
+            &amp; Build
+          </h3>
+
+          <p class="mt-4 font-inter text-[15px] font-medium leading-[1.7] text-black/60">
+            Once scope is locked, I design and build in Framer. You’ll review quickly, leave feedback, and we iterate fast
+            to keep everything clean, clear, and high-performing.
+          </p>
+
+          <div class="mt-6">
+            <div class="relative overflow-hidden rounded-2xl bg-black/5 aspect-[16/10]">
+              <img
+                src="process-2.png"
+                alt="Design & Build"
+                class="absolute inset-0 h-full w-full object-cover object-center"
+              />
+              <div class="pointer-events-none absolute inset-0 ring-1 ring-black/10"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="rounded-3xl bg-white/95 p-7 shadow-[0_20px_60px_rgba(0,0,0,.20)]">
+          <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-black/5 font-inter text-[12px] font-semibold text-black/70">
+            03
+          </span>
+
+          <h3 class="mt-4 font-cal text-[28px] leading-[1.1] tracking-[-0.02em] text-[#0b1220]">
+            Handover<br />
+            Training
+          </h3>
+
+          <p class="mt-4 font-inter text-[15px] font-medium leading-[1.7] text-black/60">
+            After approval, you’ll get full access, a short training walkthrough, and optional email support so you can
+            confidently manage updates going forward.
+          </p>
+
+          <div class="mt-6">
+            <!-- If you don't have an image, keep this as a placeholder -->
+            <div class="relative overflow-hidden rounded-2xl bg-black/10 aspect-[16/10]">
+              <img
+                src="process-3.png"
+                alt="Handover Training"
+                class="absolute inset-0 h-full w-full object-cover object-center"
+                onerror="this.style.display='none';"
+              />
+              <div class="pointer-events-none absolute inset-0 ring-1 ring-black/10"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- TYPING STATEMENT (breaks the blue-block repetition, premium) -->
+<section class="relative bg-[#0b1220] py-20 sm:py-28 overflow-hidden">
+  <!-- ambient glows -->
+  <div class="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#2a4db7]/25 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-48 left-16 h-[460px] w-[460px] rounded-full bg-white/10 blur-3xl"></div>
+
+  <!-- subtle grid texture -->
+  <div class="pointer-events-none absolute inset-0 opacity-[0.18]">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.16)_1px,transparent_1px)] [background-size:26px_26px]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0b1220]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-[980px] text-center">
+      <!-- label -->
+      <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 font-inter text-[12px] font-medium text-white/75 ring-1 ring-white/15 backdrop-blur">
+        <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
+        Built for Conversion
+      </span>
+
+      <!-- headline -->
+      <h2 class="mt-6 font-cal text-white text-[38px] leading-[1.05] tracking-[-0.02em] sm:text-[54px] md:text-[64px]">
+        Not just pretty.<br class="hidden sm:block" />
+        Built to perform.
+      </h2>
+
+      <!-- typing glass plate -->
+      <div class="mt-8 flex justify-center">
+        <div class="relative w-full max-w-[920px] rounded-3xl bg-white/10 px-6 py-8 sm:px-10 sm:py-10 ring-1 ring-white/15 backdrop-blur shadow-[0_30px_90px_rgba(0,0,0,.35)]">
+          <!-- top shine -->
+          <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
+
+          <p class="font-inter text-[13px] font-medium tracking-wide text-white/60">
+            I design Framer websites that
+          </p>
+
+          <div class="mt-3 inline-flex items-center justify-center">
+            <span
+              id="typingText"
+              class="font-cal text-white text-[30px] leading-[1.08] tracking-[-0.02em] sm:text-[44px] md:text-[52px]"
+            ></span>
+            <span class="ml-2 inline-block h-[1em] w-[2px] bg-white/90 animate-pulse" aria-hidden="true"></span>
+          </div>
+
+          <p class="mx-auto mt-6 max-w-[760px] font-inter text-[16px] font-medium leading-[1.7] text-white/75">
+            Fast load times, clean structure, and intentional UX — so your site feels premium and turns visitors into customers.
+          </p>
+
+          <!-- CTAs (same vibe as hero buttons) -->
+          <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href="#portfolio"
+              class="inline-flex items-center justify-center rounded-xl bg-[#2a4db7] px-6 py-3 font-inter text-[14px] font-medium text-white shadow-sm hover:opacity-95 transition"
+            >
+              Explore my work
+            </a>
+            <a
+              href="#contact"
+              class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 font-inter text-[14px] font-medium text-[#2a4db7] shadow-sm hover:opacity-95 transition"
+            >
+              Schedule a call
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- small trust line -->
+      <p class="mt-8 font-inter text-[13px] font-medium text-white/55">
+        Designed in Figma. Built in Framer. Optimized for conversions.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const el = document.getElementById("typingText");
+    if (!el) return;
+
+    const phrases = [
+      "convert visitors into customers.",
+      "feel premium and intentional.",
+      "load fast and rank better.",
+      "make your brand look elite."
+    ];
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    const TYPE_SPEED = 42;
+    const DELETE_SPEED = 26;
+    const HOLD_TIME = 1200;
+
+    function tick() {
+      const current = phrases[phraseIndex];
+
+      if (!deleting) {
+        charIndex++;
+        el.textContent = current.slice(0, charIndex);
+
+        if (charIndex >= current.length) {
+          deleting = true;
+          setTimeout(tick, HOLD_TIME);
+          return;
+        }
+        setTimeout(tick, TYPE_SPEED);
+      } else {
+        charIndex--;
+        el.textContent = current.slice(0, charIndex);
+
+        if (charIndex <= 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          setTimeout(tick, 220);
+          return;
+        }
+        setTimeout(tick, DELETE_SPEED);
+      }
+    }
+
+    tick();
+  })();
+</script>
+
+<script>
+(() => {
+  const carousel = document.getElementById("premCarousel");
+  const track = document.getElementById("premTrack");
+  const dotsWrap = document.getElementById("premDots");
+  if (!carousel || !track || !dotsWrap) return;
+
+  // Build loop by cloning first+last (transform carousel, NOT scroll)
+  let slides = Array.from(track.querySelectorAll(".prem-slide"));
+  const realCount = slides.length;
+  if (realCount < 2) return;
+
+  const firstClone = slides[0].cloneNode(true);
+  const lastClone = slides[realCount - 1].cloneNode(true);
+  firstClone.dataset.clone = "1";
+  lastClone.dataset.clone = "1";
+  track.insertBefore(lastClone, slides[0]);
+  track.appendChild(firstClone);
+
+  slides = Array.from(track.querySelectorAll(".prem-slide")); // now includes clones
+
+  // --- sizing ---
+  const getGapPx = () => {
+    const styles = getComputedStyle(track);
+    return parseFloat(styles.columnGap || styles.gap || "0") || 0;
+  };
+
+  const measureStep = () => {
+    // slide width + gap (all slides same width)
+    const gap = getGapPx();
+    const w = slides[0].getBoundingClientRect().width;
+    return w + gap;
+  };
+
+  // --- state ---
+  let step = 0;
+  let index = 0;      // index in slides[] (includes clones)
+  let x = 0;          // current translateX
+  let targetX = 0;    // target translateX
+  let isDragging = false;
+  let startX = 0;
+  let startTranslate = 0;
+  let lastClientX = 0;
+  let lastTime = 0;
+  let velocity = 0;
+  let raf = null;
+
+  // easing
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  function setTranslate(val) {
+    x = val;
+    track.style.transform = `translate3d(${val}px,0,0)`;
+  }
+
+  function centerIndex(i, immediate = false) {
+    // We want the i-th slide CENTERED in the carousel
+    // Centering math: translate so slide center aligns to carousel center.
+    const cRect = carousel.getBoundingClientRect();
+    const slideRect = slides[i].getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
+
+    // current slide center relative to viewport
+    const slideCenter = slideRect.left + slideRect.width / 2;
+    const carouselCenter = cRect.left + cRect.width / 2;
+
+    // delta needed in pixels
+    const delta = carouselCenter - slideCenter;
+    const next = x + delta;
+
+    if (immediate) {
+      setTranslate(next);
+      targetX = next;
+      updateActiveUI();
+      return;
+    }
+
+    animateTo(next, 360);
+  }
+
+  function animateTo(to, duration = 360) {
+    cancelAnimationFrame(raf);
+    const from = x;
+    const start = performance.now();
+    targetX = to;
+
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = easeOutCubic(t);
+      setTranslate(from + (to - from) * eased);
+
+      if (t < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        // after anim, ensure loop correction if on clone
+        loopFix();
+        updateActiveUI();
+      }
+    };
+    raf = requestAnimationFrame(tick);
+  }
+
+  function loopFix() {
+    // slides: [lastClone, real1..realN, firstClone]
+    // indices: 0 clone(last), 1..N real, N+1 clone(first)
+    if (index === 0) {
+      index = realCount; // jump to last real
+      centerIndex(index, true);
+    } else if (index === realCount + 1) {
+      index = 1; // jump to first real
+      centerIndex(index, true);
+    }
+  }
+
+  function nearestIndex() {
+    // choose slide whose center is closest to carousel center
+    const cRect = carousel.getBoundingClientRect();
+    const carouselCenter = cRect.left + cRect.width / 2;
+
+    let best = 0;
+    let bestDist = Infinity;
+    slides.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      const center = r.left + r.width / 2;
+      const d = Math.abs(center - carouselCenter);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    return best;
+  }
+
+  // --- Premium UI (active slide pop + dots) ---
+  const dots = [];
+  function buildDots() {
+    dotsWrap.innerHTML = "";
+    dots.length = 0;
+    for (let i = 0; i < realCount; i++) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "h-2.5 w-2.5 rounded-full bg-white/25 hover:bg-white/45 transition";
+      b.addEventListener("click", () => {
+        index = i + 1; // real i => slide index i+1
+        centerIndex(index, false);
+      });
+      dotsWrap.appendChild(b);
+      dots.push(b);
+    }
+  }
+
+  function updateActiveUI() {
+    // active index mapped to real
+    let realIdx = index - 1;
+    if (index === 0) realIdx = realCount - 1;
+    if (index === realCount + 1) realIdx = 0;
+
+    // dots
+    dots.forEach((d, i) => {
+      d.style.backgroundColor = i === realIdx ? "rgba(255,255,255,.8)" : "rgba(255,255,255,.25)";
+      d.style.transform = i === realIdx ? "scale(1.15)" : "scale(1)";
+    });
+
+    // slides pop
+    slides.forEach((s, i) => {
+      if (i === index) {
+        s.style.transform = "scale(1.03)";
+        s.style.opacity = "1";
+      } else {
+        s.style.transform = "scale(0.98)";
+        s.style.opacity = "0.88";
+      }
+    });
+  }
+
+  // --- Drag handling (actually moves on mouse drag) ---
+  carousel.addEventListener("pointerdown", (e) => {
+    isDragging = true;
+    carousel.setPointerCapture(e.pointerId);
+
+    startX = e.clientX;
+    startTranslate = x;
+
+    lastClientX = e.clientX;
+    lastTime = performance.now();
+    velocity = 0;
+
+    cancelAnimationFrame(raf);
+  });
+
+  carousel.addEventListener("pointermove", (e) => {
+    if (!isDragging) return;
+
+    const dx = e.clientX - startX;
+    setTranslate(startTranslate + dx);
+
+    // velocity
+    const now = performance.now();
+    const dt = Math.max(1, now - lastTime);
+    velocity = (e.clientX - lastClientX) / dt; // px per ms
+
+    lastClientX = e.clientX;
+    lastTime = now;
+  });
+
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+
+    // decide snap
+    const flick = Math.abs(velocity) > 0.35;
+    if (flick) {
+      // if dragging left (velocity negative), go next; else prev
+      index = velocity < 0 ? index + 1 : index - 1;
+    } else {
+      index = nearestIndex();
+    }
+
+    // bounds allowed for clones
+    index = Math.max(0, Math.min(index, realCount + 1));
+    centerIndex(index, false);
+  }
+
+  carousel.addEventListener("pointerup", endDrag);
+  carousel.addEventListener("pointercancel", endDrag);
+  carousel.addEventListener("mouseleave", endDrag);
+
+  // --- Keyboard arrows ---
+  window.addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    index += (e.key === "ArrowRight") ? 1 : -1;
+    centerIndex(index, false);
+  });
+
+  // --- Init ---
+  function init() {
+    step = measureStep();
+    buildDots();
+
+    // Start with slide #2 centered (real2 => index 2)
+    index = 2;
+    // wait layout
+    requestAnimationFrame(() => {
+      // place track so slide #2 is centered immediately
+      centerIndex(index, true);
+      updateActiveUI();
+    });
+  }
+
+  init();
+
+  // Recenter on resize (keeps it premium)
+  let resizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      // keep whichever is currently closest
+      index = nearestIndex();
+      centerIndex(index, true);
+      updateActiveUI();
+    }, 120);
+  });
+})();
+</script>
+</body>
+</html>
