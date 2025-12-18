@@ -20,8 +20,22 @@
     .font-instrument { font-family: var(--font-instrument); }
     .font-cal { font-family: var(--font-cal); }
 
-    /* Small quality-of-life (premium feel) */
     html { scroll-behavior: smooth; }
+
+    /* Reveal animation (subtle + premium) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 600ms ease, transform 600ms ease;
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 
   <script>
@@ -37,23 +51,20 @@
 </head>
 
 <body class="bg-[#0b1220] text-white font-inter">
-  <!-- GLOBAL PREMIUM BACKDROP (adds depth site-wide) -->
+  <!-- GLOBAL PREMIUM BACKDROP -->
   <div class="pointer-events-none fixed inset-0 -z-10">
-    <!-- soft glows -->
     <div class="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#2a4db7]/18 blur-3xl"></div>
     <div class="absolute top-[45vh] -left-24 h-[520px] w-[520px] rounded-full bg-white/7 blur-3xl"></div>
     <div class="absolute -bottom-48 right-[-120px] h-[560px] w-[560px] rounded-full bg-[#2a4db7]/14 blur-3xl"></div>
 
-    <!-- subtle grid texture -->
     <div class="absolute inset-0 opacity-[0.12]">
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:28px_28px]"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0b1220]"></div>
     </div>
   </div>
 
-  <!-- FULL SCREEN HERO (KEEP AS-IS) -->
-  <section class="relative h-screen w-screen overflow-hidden">
-    <!-- Background -->
+  <!-- HERO -->
+  <section class="relative h-screen w-screen overflow-hidden" id="top">
     <div class="absolute inset-0">
       <img src="hero-bg.png" alt="" class="h-full w-full object-cover" />
       <div class="absolute inset-0 bg-[#3d68d9]/55"></div>
@@ -64,23 +75,21 @@
     <header class="relative z-20">
       <div class="mx-auto max-w-[1240px] px-5 sm:px-6">
         <div class="flex h-[78px] items-center justify-between">
-          <!-- Logo -->
-          <a href="/" class="flex items-center gap-2">
+          <a href="#top" class="flex items-center gap-2">
             <img src="logo.png" alt="byMedina logo" class="h-7 w-auto" />
             <span class="font-cal text-[15px] text-white/90">byMedina</span>
           </a>
 
-          <!-- Desktop Nav -->
           <nav class="hidden md:flex items-center gap-8 text-[15px] font-normal text-white/80">
             <a class="hover:text-white transition" href="#top">Home</a>
             <a class="hover:text-white transition" href="#about">About</a>
             <a class="hover:text-white transition" href="#services">Services</a>
             <a class="hover:text-white transition" href="#portfolio">Portfolio</a>
             <a class="hover:text-white transition" href="#process">Process</a>
+            <a class="hover:text-white transition" href="#skills">Skills</a>
             <a class="hover:text-white transition" href="#contact">Contact</a>
           </nav>
 
-          <!-- Right actions -->
           <div class="flex items-center gap-3">
             <a
               href="#contact"
@@ -89,7 +98,6 @@
               Schedule a call
             </a>
 
-            <!-- Burger (mobile) -->
             <button
               id="burgerBtn"
               class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 hover:bg-white/15 transition"
@@ -104,7 +112,6 @@
           </div>
         </div>
 
-        <!-- Mobile menu (dropdown) -->
         <div
           id="mobileMenu"
           class="md:hidden hidden mt-2 rounded-2xl border border-white/10 bg-[#0b1220]/70 backdrop-blur-xl p-3"
@@ -115,6 +122,7 @@
             <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#services">Services</a>
             <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#portfolio">Portfolio</a>
             <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#process">Process</a>
+            <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#skills">Skills</a>
             <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#contact">Contact</a>
 
             <a
@@ -129,7 +137,7 @@
     </header>
 
     <!-- Hero Text -->
-    <div class="relative z-10" id="top">
+    <div class="relative z-10">
       <div class="mx-auto max-w-[1240px] px-5 sm:px-6">
         <div class="flex flex-col items-center text-center pt-[8vh] sm:pt-[9vh]">
           <h1 class="font-cal text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[64px]">
@@ -141,8 +149,8 @@
           </p>
 
           <p class="mt-5 sm:mt-6 max-w-[760px] text-[14px] sm:text-[16px] font-medium leading-[1.65] text-white/85 px-2 sm:px-0">
-            Jaden Medina is a Framer web designer specializing in sleek, high-converting websites. Wherever
-            you are, he’s ready to elevate your brand with modern design that performs.
+            I build sleek, high-converting websites — from clean landing pages to full brand sites.
+            Modern design, fast performance, and layouts that make people take action.
           </p>
 
           <div class="mt-7 sm:mt-8 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto px-6 sm:px-0">
@@ -163,31 +171,26 @@
       </div>
     </div>
 
-    <!-- Bottom mockup -->
     <div class="absolute left-1/2 bottom-[-8vh] sm:bottom-[-10vh] md:bottom-[-12vh] z-10 w-[min(1200px,94vw)] -translate-x-1/2">
       <img src="hero-mockup.png" alt="byMedina mockup" class="w-full h-auto block drop-shadow-2xl" />
     </div>
 
-    <!-- Bottom fade -->
     <div class="pointer-events-none absolute inset-x-0 bottom-0 h-[22vh] bg-gradient-to-t from-[#0b1220] via-[#0b1220]/60 to-transparent"></div>
   </section>
 
-  <!-- SECTION DIVIDER (adds rhythm) -->
+  <!-- Divider -->
   <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
     <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
   </div>
 
-  <!-- ABOUT (no big blue block — glass + accent) -->
+  <!-- ABOUT -->
   <section id="about" class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
-      <div class="relative rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl shadow-[0_30px_90px_rgba(0,0,0,.35)] overflow-hidden">
-        <!-- accent glow -->
+      <div data-reveal class="reveal relative rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl shadow-[0_30px_90px_rgba(0,0,0,.35)] overflow-hidden">
         <div class="pointer-events-none absolute -top-32 -right-20 h-64 w-64 rounded-full bg-[#2a4db7]/18 blur-3xl"></div>
-        <!-- subtle top shine -->
         <div class="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
 
         <div class="grid gap-10 p-7 sm:p-10 lg:grid-cols-2 lg:items-center lg:p-12">
-          <!-- LEFT -->
           <div>
             <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 font-inter text-[12px] font-medium text-white/75 ring-1 ring-white/15">
               <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
@@ -196,13 +199,13 @@
 
             <h2 class="mt-5 font-cal text-white text-[38px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
               Meet Jaden Medina —<br />
-              Your Dedicated Framer<br />
-              Web Designer
+              Your Website Designer<br />
+              &amp; Developer
             </h2>
 
             <p class="mt-5 font-inter text-[16px] font-medium leading-[1.7] text-white/75 max-w-[560px]">
-              I build sleek, high-converting Framer websites that look premium and perform. Fast edits, clean structure,
-              and design choices that move users toward action.
+              I design and build modern websites that feel premium, load fast, and convert.
+              Clean UI, strong structure, and details that make the site feel “real” — not templated.
             </p>
 
             <div class="mt-7 flex flex-wrap items-center gap-3">
@@ -214,7 +217,6 @@
               </a>
             </div>
 
-            <!-- Social row -->
             <div class="mt-7 flex items-center gap-3">
               <a href="#" class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/90 text-black/70 hover:opacity-90 transition">
                 <span class="font-inter text-[14px] font-medium">Be</span>
@@ -228,7 +230,6 @@
             </div>
           </div>
 
-          <!-- RIGHT image (premium frame) -->
           <div class="lg:pl-6">
             <div class="relative overflow-hidden rounded-3xl bg-black/15 aspect-[4/3] sm:aspect-[3/2] ring-1 ring-white/10">
               <img src="about-photo.png" alt="Jaden Medina" class="absolute inset-0 h-full w-full object-cover object-center" />
@@ -240,26 +241,21 @@
     </div>
   </section>
 
-  <!-- TYPING STATEMENT (your premium break section) -->
+  <!-- TYPING STATEMENT -->
   <section class="relative py-20 sm:py-28 overflow-hidden">
     <div class="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-[980px] text-center">
-        <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 font-inter text-[12px] font-medium text-white/75 ring-1 ring-white/15 backdrop-blur">
-          <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
-          Built for Conversion
-        </span>
-
-        <h2 class="mt-6 font-cal text-white text-[38px] leading-[1.05] tracking-[-0.02em] sm:text-[54px] md:text-[64px]">
+        <h2 data-reveal class="reveal mt-0 font-cal text-white text-[38px] leading-[1.05] tracking-[-0.02em] sm:text-[54px] md:text-[64px]">
           Not just pretty.<br class="hidden sm:block" />
           Built to perform.
         </h2>
 
         <div class="mt-8 flex justify-center">
-          <div class="relative w-full max-w-[920px] rounded-3xl bg-white/10 px-6 py-8 sm:px-10 sm:py-10 ring-1 ring-white/15 backdrop-blur shadow-[0_30px_90px_rgba(0,0,0,.35)]">
+          <div data-reveal class="reveal relative w-full max-w-[920px] rounded-3xl bg-white/10 px-6 py-8 sm:px-10 sm:py-10 ring-1 ring-white/15 backdrop-blur shadow-[0_30px_90px_rgba(0,0,0,.35)]">
             <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
 
             <p class="font-inter text-[13px] font-medium tracking-wide text-white/60">
-              I design Framer websites that
+              I build websites that
             </p>
 
             <div class="mt-3 inline-flex items-center justify-center">
@@ -286,21 +282,21 @@
         </div>
 
         <p class="mt-8 font-inter text-[13px] font-medium text-white/55">
-          Designed in Figma. Built in Framer. Optimized for conversions.
+          Designed in Figma • Built with modern code
         </p>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES (dark/glass cards, blue as accent) -->
+  <!-- SERVICES -->
   <section id="services" class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div class="max-w-[820px]">
-          <h2 class="font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
-            Custom Framer Website,<br class="hidden sm:block" /> Done Right
+          <h2 data-reveal class="reveal font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
+            Custom Website Build,<br class="hidden sm:block" /> Done Right
           </h2>
-          <p class="mt-4 font-inter text-[16px] font-medium leading-[1.7] text-white/75">
+          <p data-reveal class="reveal mt-4 font-inter text-[16px] font-medium leading-[1.7] text-white/75">
             Pick a single service or a full design-to-launch package. Everything is built to feel premium and convert.
           </p>
         </div>
@@ -311,29 +307,28 @@
       </div>
 
       <div class="mt-10 grid gap-6 lg:grid-cols-2">
-        <!-- Card -->
-        <article class="rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-8 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+        <article data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-8 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
           <div class="flex items-center gap-3">
             <div class="h-10 w-10 rounded-2xl bg-[#2a4db7]/25 ring-1 ring-white/10"></div>
-            <p class="font-inter text-[12px] font-semibold tracking-wide text-white/70">Core Service</p>
+            <p class="font-inter text-[12px] font-semibold tracking-wide text-white/70">Core</p>
           </div>
-          <h3 class="mt-5 font-cal text-[30px] leading-[1.05] tracking-[-0.02em] text-white">Framer Web Design</h3>
+          <h3 class="mt-5 font-cal text-[30px] leading-[1.05] tracking-[-0.02em] text-white">Website Design + Build</h3>
           <p class="mt-4 font-inter text-[15px] font-medium leading-[1.7] text-white/70">
-            High-performing Framer builds with clean UI, responsive layouts, and conversion-first structure.
+            Modern UI, responsive layout, clean code, and conversion-first structure — built for any platform you need.
           </p>
           <a href="#contact" class="mt-6 inline-flex items-center justify-center rounded-xl bg-[#2a4db7] px-5 py-2.5 font-inter text-[14px] font-medium text-white hover:opacity-95 transition">
             Get started
           </a>
         </article>
 
-        <article class="rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-8 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+        <article data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-8 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
           <div class="flex items-center gap-3">
             <div class="h-10 w-10 rounded-2xl bg-white/10 ring-1 ring-white/10"></div>
-            <p class="font-inter text-[12px] font-semibold tracking-wide text-white/70">Ecom Option</p>
+            <p class="font-inter text-[12px] font-semibold tracking-wide text-white/70">Optional</p>
           </div>
-          <h3 class="mt-5 font-cal text-[30px] leading-[1.05] tracking-[-0.02em] text-white">Framer × Shopify</h3>
+          <h3 class="mt-5 font-cal text-[30px] leading-[1.05] tracking-[-0.02em] text-white">Landing Pages + Funnels</h3>
           <p class="mt-4 font-inter text-[15px] font-medium leading-[1.7] text-white/70">
-            Premium storefront experience with a clean product journey designed to convert.
+            Fast, focused pages built for one job: get the click, get the lead, get the sale.
           </p>
           <a href="#contact" class="mt-6 inline-flex items-center justify-center rounded-xl bg-white px-5 py-2.5 font-inter text-[14px] font-medium text-[#2a4db7] hover:bg-white/90 transition">
             Ask about this
@@ -343,14 +338,14 @@
     </div>
   </section>
 
-  <!-- PORTFOLIO (keep your premium transform carousel, add subtle frame) -->
+  <!-- PORTFOLIO -->
   <section id="portfolio" class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
       <div class="max-w-[780px]">
-        <h2 class="font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
+        <h2 data-reveal class="reveal font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
           Building Websites That<br class="hidden sm:block" /> Drive Results
         </h2>
-        <p class="mt-4 font-inter text-[16px] font-medium leading-[1.7] text-white/75">
+        <p data-reveal class="reveal mt-4 font-inter text-[16px] font-medium leading-[1.7] text-white/75">
           Click + drag (or swipe) through projects. It loops infinitely and always snaps centered.
         </p>
       </div>
@@ -358,7 +353,6 @@
       <div class="mt-10">
         <div id="premCarousel" class="relative overflow-hidden select-none rounded-3xl bg-white/6 ring-1 ring-white/10 backdrop-blur-xl p-4 sm:p-6">
           <div id="premTrack" class="flex items-stretch gap-10 will-change-transform" style="transform: translate3d(0,0,0); touch-action: pan-y;">
-            <!-- SLIDES -->
             <article class="prem-slide shrink-0 w-[86vw] sm:w-[520px] lg:w-[560px] transition-transform duration-300 will-change-transform">
               <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-black/15 ring-1 ring-white/10">
                 <img src="project1.png" alt="Project 1" class="absolute inset-0 h-full w-full object-contain object-center p-4 sm:p-5" />
@@ -389,7 +383,7 @@
                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"></div>
               </div>
               <div class="mt-5">
-                <p class="font-inter text-[14px] font-medium text-white/60">Framer Build</p>
+                <p class="font-inter text-[14px] font-medium text-white/60">Build</p>
                 <h3 class="mt-1 font-cal text-[22px] leading-[1.15] text-white">App Launch — Visual System</h3>
                 <p class="mt-2 font-inter text-[15px] font-medium leading-[1.6] text-white/70">Premium visuals that feel cohesive + modern.</p>
               </div>
@@ -402,70 +396,153 @@
     </div>
   </section>
 
-  <!-- PROCESS (no blue wrapper — premium cards, strong hierarchy) -->
+  <!-- PROCESS -->
   <section id="process" class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
       <div class="max-w-[760px]">
-        <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 font-inter text-[12px] font-medium text-white/75 ring-1 ring-white/15">
-          <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
-          Process
-        </span>
-        <h2 class="mt-5 font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
+        <h2 data-reveal class="reveal mt-0 font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
           Smooth &amp; Efficient<br class="hidden sm:block" />
           Project Flow
         </h2>
       </div>
 
       <div class="mt-10 grid gap-6 lg:grid-cols-3">
-        <article class="rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+        <article data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
           <div class="flex items-center justify-between">
             <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-[#2a4db7]/25 ring-1 ring-white/10 font-inter text-[12px] font-semibold text-white/85">01</span>
             <span class="text-[12px] font-semibold tracking-wide text-white/55">Week 1</span>
           </div>
           <h3 class="mt-5 font-cal text-[28px] leading-[1.1] tracking-[-0.02em] text-white">Discovery &amp; Strategy</h3>
           <p class="mt-4 font-inter text-[15px] font-medium leading-[1.7] text-white/70">
-            Goals, audience, offer, layout plan. Clear structure before any pixels.
+            Goals, audience, offer, sitemap. We set the structure before we build.
           </p>
           <div class="mt-6 relative overflow-hidden rounded-2xl bg-black/15 aspect-[16/10] ring-1 ring-white/10">
             <img src="process-1.png" alt="Discovery & Strategy" class="absolute inset-0 h-full w-full object-cover object-center" />
           </div>
         </article>
 
-        <article class="rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+        <article data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
           <div class="flex items-center justify-between">
             <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/10 font-inter text-[12px] font-semibold text-white/85">02</span>
             <span class="text-[12px] font-semibold tracking-wide text-white/55">Week 2</span>
           </div>
           <h3 class="mt-5 font-cal text-[28px] leading-[1.1] tracking-[-0.02em] text-white">Design &amp; Build</h3>
           <p class="mt-4 font-inter text-[15px] font-medium leading-[1.7] text-white/70">
-            Build in Framer with fast feedback loops and clean, modern interactions.
+            I design, develop, and add polish — clean UI, smooth interactions, and responsive layouts.
           </p>
           <div class="mt-6 relative overflow-hidden rounded-2xl bg-black/15 aspect-[16/10] ring-1 ring-white/10">
             <img src="process-2.png" alt="Design & Build" class="absolute inset-0 h-full w-full object-cover object-center" />
           </div>
         </article>
 
-        <article class="rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+        <article data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
           <div class="flex items-center justify-between">
             <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/10 font-inter text-[12px] font-semibold text-white/85">03</span>
             <span class="text-[12px] font-semibold tracking-wide text-white/55">Launch</span>
           </div>
-          <h3 class="mt-5 font-cal text-[28px] leading-[1.1] tracking-[-0.02em] text-white">Handover &amp; Training</h3>
+          <h3 class="mt-5 font-cal text-[28px] leading-[1.1] tracking-[-0.02em] text-white">Handover &amp; Support</h3>
           <p class="mt-4 font-inter text-[15px] font-medium leading-[1.7] text-white/70">
-            Full access, a quick walkthrough, and optional support for updates.
+            Final QA, launch, and a quick walkthrough so updates stay easy.
           </p>
           <div class="mt-6 relative overflow-hidden rounded-2xl bg-black/15 aspect-[16/10] ring-1 ring-white/10">
-            <img src="process-3.png" alt="Handover & Training" class="absolute inset-0 h-full w-full object-cover object-center" />
+            <img src="process-3.png" alt="Handover & Support" class="absolute inset-0 h-full w-full object-cover object-center" />
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT (simple but premium) -->
+  <!-- SKILLS -->
+  <section id="skills" class="py-16 sm:py-20">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[780px]">
+        <h2 data-reveal class="reveal font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
+          Skills
+        </h2>
+        <p data-reveal class="reveal mt-4 font-inter text-[16px] font-medium leading-[1.7] text-white/75">
+          The stack I use to design, build, and ship clean websites.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        <!-- Skill card -->
+        <div data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+          <div class="flex items-center justify-between">
+            <p class="font-cal text-[22px] tracking-[-0.02em] text-white">HTML</p>
+            <p class="font-inter text-[13px] font-semibold text-white/70">100%</p>
+          </div>
+          <div class="mt-4 h-2.5 w-full rounded-full bg-white/10 ring-1 ring-white/10 overflow-hidden">
+            <div class="h-full w-full rounded-full bg-white/80"></div>
+          </div>
+        </div>
+
+        <div data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+          <div class="flex items-center justify-between">
+            <p class="font-cal text-[22px] tracking-[-0.02em] text-white">CSS</p>
+            <p class="font-inter text-[13px] font-semibold text-white/70">100%</p>
+          </div>
+          <div class="mt-4 h-2.5 w-full rounded-full bg-white/10 ring-1 ring-white/10 overflow-hidden">
+            <div class="h-full w-full rounded-full bg-white/80"></div>
+          </div>
+        </div>
+
+        <div data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+          <div class="flex items-center justify-between">
+            <p class="font-cal text-[22px] tracking-[-0.02em] text-white">JavaScript</p>
+            <p class="font-inter text-[13px] font-semibold text-white/70">100%</p>
+          </div>
+          <div class="mt-4 h-2.5 w-full rounded-full bg-white/10 ring-1 ring-white/10 overflow-hidden">
+            <div class="h-full w-full rounded-full bg-white/80"></div>
+          </div>
+        </div>
+
+        <div data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+          <div class="flex items-center justify-between">
+            <p class="font-cal text-[22px] tracking-[-0.02em] text-white">Tailwind</p>
+            <p class="font-inter text-[13px] font-semibold text-white/70">100%</p>
+          </div>
+          <div class="mt-4 h-2.5 w-full rounded-full bg-white/10 ring-1 ring-white/10 overflow-hidden">
+            <div class="h-full w-full rounded-full bg-white/80"></div>
+          </div>
+        </div>
+
+        <div data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+          <div class="flex items-center justify-between">
+            <p class="font-cal text-[22px] tracking-[-0.02em] text-white">React</p>
+            <p class="font-inter text-[13px] font-semibold text-white/70">100%</p>
+          </div>
+          <div class="mt-4 h-2.5 w-full rounded-full bg-white/10 ring-1 ring-white/10 overflow-hidden">
+            <div class="h-full w-full rounded-full bg-white/80"></div>
+          </div>
+        </div>
+
+        <div data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+          <div class="flex items-center justify-between">
+            <p class="font-cal text-[22px] tracking-[-0.02em] text-white">TypeScript</p>
+            <p class="font-inter text-[13px] font-semibold text-white/70">100%</p>
+          </div>
+          <div class="mt-4 h-2.5 w-full rounded-full bg-white/10 ring-1 ring-white/10 overflow-hidden">
+            <div class="h-full w-full rounded-full bg-white/80"></div>
+          </div>
+        </div>
+
+        <div data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)] lg:col-span-2">
+          <div class="flex items-center justify-between">
+            <p class="font-cal text-[22px] tracking-[-0.02em] text-white">Kotlin</p>
+            <p class="font-inter text-[13px] font-semibold text-white/70">100%</p>
+          </div>
+          <div class="mt-4 h-2.5 w-full rounded-full bg-white/10 ring-1 ring-white/10 overflow-hidden">
+            <div class="h-full w-full rounded-full bg-white/80"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
   <section id="contact" class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
-      <div class="relative rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-10 sm:p-12 shadow-[0_30px_90px_rgba(0,0,0,.25)] overflow-hidden">
+      <div data-reveal class="reveal relative rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-10 sm:p-12 shadow-[0_30px_90px_rgba(0,0,0,.25)] overflow-hidden">
         <div class="pointer-events-none absolute -top-40 right-0 h-[420px] w-[420px] rounded-full bg-[#2a4db7]/18 blur-3xl"></div>
 
         <h2 class="font-cal text-white text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[56px]">
@@ -484,13 +561,22 @@
           </a>
         </div>
       </div>
+
+      <p class="mt-10 text-center text-[13px] font-medium text-white/45">
+        © <span id="year"></span> byMedina. All rights reserved.
+      </p>
     </div>
   </section>
 
   <!-- ====== SCRIPTS ====== -->
 
-  <!-- Burger menu -->
   <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script>
+    // Burger menu
     (function () {
       const btn = document.getElementById("burgerBtn");
       const menu = document.getElementById("mobileMenu");
@@ -501,11 +587,38 @@
         menu.classList.toggle("hidden");
         btn.setAttribute("aria-expanded", String(!isOpen));
       });
+
+      // close on link tap
+      menu.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => {
+          menu.classList.add("hidden");
+          btn.setAttribute("aria-expanded", "false");
+        });
+      });
     })();
   </script>
 
-  <!-- Typing -->
   <script>
+    // Reveal on scroll
+    (function(){
+      const els = Array.from(document.querySelectorAll("[data-reveal]"));
+      if (!els.length) return;
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      els.forEach((el) => io.observe(el));
+    })();
+  </script>
+
+  <script>
+    // Typing
     (function () {
       const el = document.getElementById("typingText");
       if (!el) return;
@@ -553,8 +666,8 @@
     })();
   </script>
 
-  <!-- Premium transform carousel -->
   <script>
+    // Premium transform carousel (unchanged)
     (() => {
       const carousel = document.getElementById("premCarousel");
       const track = document.getElementById("premTrack");
@@ -573,7 +686,7 @@
       track.appendChild(firstClone);
       slides = Array.from(track.querySelectorAll(".prem-slide"));
 
-      let index = 2; // start on real #2
+      let index = 2;
       let x = 0;
       let isDragging = false;
       let startX = 0;
@@ -639,7 +752,6 @@
         return best;
       }
 
-      // dots
       const dots = [];
       dotsWrap.innerHTML = "";
       for (let i = 0; i < realCount; i++) {
@@ -667,7 +779,6 @@
         });
       }
 
-      // drag
       carousel.addEventListener("pointerdown", (e) => {
         isDragging = true;
         carousel.setPointerCapture(e.pointerId);
@@ -713,13 +824,11 @@
         centerIndex(index, false);
       });
 
-      // init
       requestAnimationFrame(() => {
         centerIndex(index, true);
         updateActiveUI();
       });
 
-      // recenter on resize
       let t = null;
       window.addEventListener("resize", () => {
         clearTimeout(t);
