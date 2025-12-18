@@ -11,17 +11,24 @@
   <!-- Fonts -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
+
     :root{
       --font-inter: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --font-instrument: "Instrument Serif", ui-serif, Georgia, "Times New Roman", Times, serif;
       --font-cal: "Cal Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+
+      --bg: #0b1220;
+      --blue: #3d68d9;
+      --blueDeep: #2a4db7;
     }
+
     .font-inter { font-family: var(--font-inter); }
     .font-instrument { font-family: var(--font-instrument); }
     .font-cal { font-family: var(--font-cal); }
 
     html { scroll-behavior: smooth; }
 
+<<<<<<< HEAD
     /* Reveal animation (subtle + premium) */
     .reveal {
       opacity: 0;
@@ -35,6 +42,25 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
+=======
+    /* Safari/macOS blur reliability */
+    .glass { -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+
+    /* SUPER RELIABLE DOT GRID (works on Safari/Mac, no Tailwind arbitrary bg needed) */
+    .dotgrid{
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-position: 0 0;
+    }
+
+    /* keep background crisp on retina */
+    @media (min-resolution: 2dppx) {
+      .dotgrid{
+        background-image: radial-gradient(rgba(255,255,255,0.16) 0.9px, transparent 0.9px);
+      }
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
     }
   </style>
 
@@ -42,14 +68,24 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: { brandBlue: "#3d68d9" },
-          boxShadow: { soft: "0 30px 80px rgba(0,0,0,.35)" }
+          colors: {
+            brandBlue: "#3d68d9",
+            brandDeep: "#2a4db7",
+            ink: "#0b1220",
+          },
+          screens: {
+            mac: "1280px"
+          },
+          boxShadow: {
+            soft: "0 30px 80px rgba(0,0,0,.35)",
+          }
         }
       }
     }
   </script>
 </head>
 
+<<<<<<< HEAD
 <body class="bg-[#0b1220] text-white font-inter">
   <!-- GLOBAL PREMIUM BACKDROP -->
   <div class="pointer-events-none fixed inset-0 -z-10">
@@ -109,9 +145,101 @@
                 <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </button>
+=======
+<body class="bg-transparent text-white font-inter">
+  <!-- BACKDROP (Mac/Safari safe): dots + glows + vignette -->
+  <div class="fixed inset-0 z-0 pointer-events-none dotgrid">
+    <!-- glows -->
+    <div class="absolute -top-44 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-brandDeep/18 blur-3xl"></div>
+    <div class="absolute top-[38vh] -left-28 h-[520px] w-[520px] rounded-full bg-white/7 blur-3xl"></div>
+    <div class="absolute -bottom-52 right-[-140px] h-[620px] w-[620px] rounded-full bg-brandDeep/16 blur-3xl"></div>
+
+    <!-- vignette -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-ink"></div>
+    <div class="absolute inset-0 [box-shadow:inset_0_0_140px_rgba(0,0,0,0.55)]"></div>
+  </div>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="relative z-10">
+    <!-- ================= HERO ================= -->
+    <section id="top" class="relative h-screen w-screen overflow-hidden">
+      <!-- Background image + overlay -->
+      <div class="absolute inset-0">
+        <img src="hero-bg.png" alt="" class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-brandBlue/55"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-white/0 via-black/10 to-ink/70"></div>
+      </div>
+
+      <!-- Header -->
+      <header class="relative z-20">
+        <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+          <div class="flex h-[78px] items-center justify-between">
+            <!-- Logo (image + Cal Sans wordmark) -->
+            <a href="#top" class="flex items-center gap-2">
+              <!-- put logo file in same folder as this HTML -->
+              <img src="logo.png" alt="byMedina logo" class="h-7 w-auto" />
+              <span class="font-cal text-[15px] text-white/90">byMedina</span>
+            </a>
+
+            <!-- Desktop nav -->
+            <nav class="hidden md:flex items-center gap-8 text-[15px] font-normal text-white/80">
+              <a class="hover:text-white transition" href="#top">Home</a>
+              <a class="hover:text-white transition" href="#about">About</a>
+              <a class="hover:text-white transition" href="#services">Services</a>
+              <a class="hover:text-white transition" href="#portfolio">Portfolio</a>
+              <a class="hover:text-white transition" href="#process">Process</a>
+              <a class="hover:text-white transition" href="#contact">Contact</a>
+            </nav>
+
+            <!-- CTA + Burger -->
+            <div class="flex items-center gap-3">
+              <a
+                href="#contact"
+                class="hidden md:inline-flex text-[15px] font-normal rounded-xl bg-white px-4 py-2 text-brandDeep shadow-sm hover:bg-white/90 transition"
+              >
+                Schedule a call
+              </a>
+
+              <button
+                id="burgerBtn"
+                class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 hover:bg-white/15 transition"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="mobileMenu"
+              >
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile menu -->
+          <div
+            id="mobileMenu"
+            class="md:hidden hidden mt-2 rounded-2xl border border-white/10 bg-ink/70 glass p-3 shadow-[0_30px_90px_rgba(0,0,0,.35)]"
+          >
+            <nav class="flex flex-col gap-1 text-[15px] font-normal text-white/85">
+              <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#top">Home</a>
+              <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#about">About</a>
+              <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#services">Services</a>
+              <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#portfolio">Portfolio</a>
+              <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#process">Process</a>
+              <a class="rounded-xl px-3 py-2 hover:bg-white/10 transition" href="#contact">Contact</a>
+
+              <a
+                href="#contact"
+                class="mt-2 inline-flex justify-center rounded-xl bg-white px-4 py-2 text-brandDeep shadow-sm hover:bg-white/90 transition"
+              >
+                Schedule a call
+              </a>
+            </nav>
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
           </div>
         </div>
+      </header>
 
+<<<<<<< HEAD
         <div
           id="mobileMenu"
           class="md:hidden hidden mt-2 rounded-2xl border border-white/10 bg-[#0b1220]/70 backdrop-blur-xl p-3"
@@ -256,38 +384,51 @@
 
             <p class="font-inter text-[13px] font-medium tracking-wide text-white/60">
               I build websites that
+=======
+      <!-- Hero content -->
+      <div class="relative z-10">
+        <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col items-center text-center pt-[8vh] sm:pt-[9vh] mac:pt-[10vh]">
+            <h1 class="font-cal text-[40px] leading-[1.05] tracking-[-0.02em] sm:text-[52px] md:text-[64px] mac:text-[66px]">
+              Jaden Medina,
+            </h1>
+
+            <p class="mt-2 font-instrument italic text-[40px] leading-[1.05] tracking-[-0.02em] text-white/95 sm:text-[52px] md:text-[64px] mac:text-[66px]">
+              Designing Success Stories.
             </p>
 
-            <div class="mt-3 inline-flex items-center justify-center">
-              <span
-                id="typingText"
-                class="font-cal text-white text-[30px] leading-[1.08] tracking-[-0.02em] sm:text-[44px] md:text-[52px]"
-              ></span>
-              <span class="ml-2 inline-block h-[1em] w-[2px] bg-white/90 animate-pulse" aria-hidden="true"></span>
-            </div>
-
-            <p class="mx-auto mt-6 max-w-[760px] font-inter text-[16px] font-medium leading-[1.7] text-white/75">
-              Fast load times, clean structure, and intentional UX — so your site feels premium and turns visitors into customers.
+            <p class="mt-5 sm:mt-6 max-w-[780px] text-[14px] sm:text-[16px] font-medium leading-[1.65] text-white/85 px-2 sm:px-0">
+              Jaden Medina is a Framer web designer specializing in sleek, high-converting websites.
+              Wherever you are, he’s ready to elevate your brand with modern design that performs.
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
             </p>
 
-            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <a href="#portfolio" class="inline-flex items-center justify-center rounded-xl bg-[#2a4db7] px-6 py-3 font-inter text-[14px] font-medium text-white shadow-sm hover:opacity-95 transition">
+            <div class="mt-7 sm:mt-8 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto px-6 sm:px-0">
+              <a
+                href="#portfolio"
+                class="w-full sm:w-auto text-center text-[15px] font-normal rounded-xl bg-[#2f57d6] px-5 py-2.5 text-white shadow-sm hover:bg-brandDeep transition"
+              >
                 Explore my work
               </a>
-              <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 font-inter text-[14px] font-medium text-[#2a4db7] shadow-sm hover:bg-white/90 transition">
+              <a
+                href="#contact"
+                class="w-full sm:w-auto text-center text-[15px] font-normal rounded-xl bg-white px-5 py-2.5 text-brandDeep shadow-sm hover:bg-white/90 transition"
+              >
                 Schedule a call
               </a>
             </div>
           </div>
         </div>
+<<<<<<< HEAD
 
         <p class="mt-8 font-inter text-[13px] font-medium text-white/55">
           Designed in Figma • Built with modern code
         </p>
+=======
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
       </div>
-    </div>
-  </section>
 
+<<<<<<< HEAD
   <!-- SERVICES -->
   <section id="services" class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
@@ -298,14 +439,847 @@
           </h2>
           <p data-reveal class="reveal mt-4 font-inter text-[16px] font-medium leading-[1.7] text-white/75">
             Pick a single service or a full design-to-launch package. Everything is built to feel premium and convert.
+=======
+      <!-- Mockup (image already tilted in Figma) -->
+      <div class="absolute left-1/2 bottom-[-6vh] sm:bottom-[-9vh] md:bottom-[-12vh] z-10 w-[min(1220px,95vw)] -translate-x-1/2">
+        <img src="hero-mockup.png" alt="byMedina mockup" class="w-full h-auto block drop-shadow-2xl" />
+      </div>
+
+      <!-- Fade to next section -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-[22vh] bg-gradient-to-t from-ink via-ink/70 to-transparent"></div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="py-14 sm:py-18 mac:py-20">
+      <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div class="relative overflow-hidden rounded-3xl bg-white/10 ring-1 ring-white/12 glass shadow-[0_30px_90px_rgba(0,0,0,.25)]
+                    px-5 py-8 sm:px-10 sm:py-12 mac:px-14 mac:py-14">
+          <div class="pointer-events-none absolute -top-36 -right-24 h-80 w-80 rounded-full bg-brandDeep/18 blur-3xl"></div>
+          <div class="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
+
+          <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div>
+              <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[12px] font-medium text-white/75 ring-1 ring-white/15">
+                <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
+                About Me
+              </span>
+
+              <h2 class="mt-6 font-cal text-white text-[34px] leading-[1.06] tracking-[-0.02em]
+                         sm:text-[46px] sm:leading-[1.05]
+                         lg:text-[56px] mac:text-[60px]">
+                Meet Jaden Medina —<br class="hidden sm:block" />
+                Your Dedicated Framer<br class="hidden sm:block" />
+                Web Designer
+              </h2>
+
+              <p class="mt-5 font-inter text-[15px] sm:text-[16px] font-medium leading-[1.7] sm:leading-[1.75] text-white/78 max-w-[640px]">
+                Looking to build a high-converting Framer website without the hassle of clunky templates or slow edits?
+                I craft fast, scalable, interactive websites that blend strategy, design, and performance.
+              </p>
+
+              <p class="mt-4 font-inter text-[15px] sm:text-[16px] font-medium leading-[1.7] sm:leading-[1.75] text-white/78 max-w-[640px]">
+                As a Framer expert, I focus on user experience and conversion — not just visuals.
+                Let’s create a website that stands out and drives results.
+              </p>
+
+              <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <a href="#portfolio" class="inline-flex items-center justify-center rounded-xl bg-brandDeep px-6 py-3 text-[14px] font-medium text-white shadow-sm hover:opacity-95 transition">
+                  View portfolio
+                </a>
+                <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-[14px] font-medium text-brandDeep shadow-sm hover:bg-white/90 transition">
+                  Work with me
+                </a>
+              </div>
+
+              <div class="mt-8 flex items-center gap-3">
+                <a href="#" class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/95 text-black/70 hover:opacity-90 transition">
+                  <span class="text-[14px] font-medium">Be</span>
+                </a>
+                <a href="#" class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/95 text-black/70 hover:opacity-90 transition">
+                  <span class="text-[14px] font-medium">in</span>
+                </a>
+                <a href="#" class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/95 text-black/70 hover:opacity-90 transition">
+                  <span class="text-[14px] font-medium">@</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="lg:pl-6">
+              <div class="relative overflow-hidden rounded-3xl bg-black/15 ring-1 ring-white/10 aspect-[4/3] sm:aspect-[3/2] mac:aspect-[16/10]">
+                <img src="about-photo.png" alt="Jaden Medina" class="absolute inset-0 h-full w-full object-cover object-[50%_35%]" />
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PREMIUM STATEMENT (your favorite section) ================= -->
+    <section class="relative py-16 sm:py-20 mac:py-24 overflow-hidden">
+      <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-[980px] text-center">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[12px] font-medium text-white/75 ring-1 ring-white/15 glass">
+            <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
+            Built for Conversion
+          </span>
+
+          <h2 class="mt-6 font-cal text-white text-[38px] leading-[1.05] tracking-[-0.02em]
+                     sm:text-[54px] md:text-[64px] mac:text-[66px]">
+            Not just pretty.<br class="hidden sm:block" />
+            Built to perform.
+          </h2>
+
+          <div class="mt-8 flex justify-center">
+            <div class="relative w-full max-w-[980px] rounded-3xl bg-white/10 ring-1 ring-white/15 glass shadow-[0_30px_90px_rgba(0,0,0,.30)]
+                        px-5 py-8 sm:px-10 sm:py-10 mac:px-12 mac:py-12">
+              <div class="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
+
+              <p class="text-[13px] font-medium tracking-wide text-white/60">
+                I design Framer websites that
+              </p>
+
+              <div class="mt-3 inline-flex items-center justify-center">
+                <span id="typingText" class="font-cal text-white text-[28px] sm:text-[44px] md:text-[54px] mac:text-[56px] leading-[1.06] tracking-[-0.02em]"></span>
+                <span class="ml-2 inline-block h-[1em] w-[2px] bg-white/90 animate-pulse" aria-hidden="true"></span>
+              </div>
+
+              <p class="mx-auto mt-6 max-w-[780px] text-[15px] sm:text-[16px] font-medium leading-[1.7] sm:leading-[1.75] text-white/78">
+                Fast load times, clean structure, and intentional UX — so your site feels premium and turns visitors into customers.
+              </p>
+
+              <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a href="#portfolio" class="inline-flex items-center justify-center rounded-xl bg-brandDeep px-6 py-3 text-[14px] font-medium text-white shadow-sm hover:opacity-95 transition">
+                  Explore my work
+                </a>
+                <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-[14px] font-medium text-brandDeep shadow-sm hover:bg-white/90 transition">
+                  Schedule a call
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-8 text-[13px] font-medium text-white/55">
+            Designed in Figma. Built in Framer. Optimized for conversions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section id="services" class="py-14 sm:py-18 mac:py-20">
+      <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div class="max-w-[860px]">
+            <h2 class="font-cal text-white text-[34px] leading-[1.06] tracking-[-0.02em]
+                       sm:text-[46px] lg:text-[56px] mac:text-[60px]">
+              Custom Framer Website,<br class="hidden sm:block" />
+              Done Right
+            </h2>
+            <p class="mt-4 text-[15px] sm:text-[16px] font-medium leading-[1.7] sm:leading-[1.75] text-white/75">
+              Pick a single service or a full design-to-launch package — built to feel premium and convert.
+            </p>
+          </div>
+
+          <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-white px-5 py-2.5 text-[14px] font-medium text-brandDeep hover:bg-white/90 transition">
+            Get a quote
+          </a>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <!-- Card -->
+          <article class="rounded-3xl bg-white/10 ring-1 ring-white/12 glass p-8 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+            <div class="flex items-center gap-3">
+              <div class="h-10 w-10 rounded-2xl bg-brandDeep/25 ring-1 ring-white/10"></div>
+              <p class="text-[12px] font-semibold tracking-wide text-white/70">Core Service</p>
+            </div>
+            <h3 class="mt-5 font-cal text-[28px] sm:text-[30px] leading-[1.05] tracking-[-0.02em] text-white">
+              Framer Web Design
+            </h3>
+            <p class="mt-4 text-[15px] font-medium leading-[1.7] text-white/72">
+              Conversion-first Framer builds with premium UI, clean layouts, and fast performance across devices.
+            </p>
+            <a href="#contact" class="mt-6 inline-flex items-center justify-center rounded-xl bg-brandDeep px-5 py-2.5 text-[14px] font-medium text-white hover:opacity-95 transition">
+              Get started
+            </a>
+          </article>
+
+          <!-- Card -->
+          <article class="rounded-3xl bg-white/10 ring-1 ring-white/12 glass p-8 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+            <div class="flex items-center gap-3">
+              <div class="h-10 w-10 rounded-2xl bg-white/10 ring-1 ring-white/10"></div>
+              <p class="text-[12px] font-semibold tracking-wide text-white/70">Ecom Option</p>
+            </div>
+            <h3 class="mt-5 font-cal text-[28px] sm:text-[30px] leading-[1.05] tracking-[-0.02em] text-white">
+              Framer × Shopify
+            </h3>
+            <p class="mt-4 text-[15px] font-medium leading-[1.7] text-white/72">
+              Premium storefront experience with a clean product journey — built for trust, speed, and conversions.
+            </p>
+            <a href="#contact" class="mt-6 inline-flex items-center justify-center rounded-xl bg-white px-5 py-2.5 text-[14px] font-medium text-brandDeep hover:bg-white/90 transition">
+              Ask about this
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PORTFOLIO (Premium drag loop carousel) ================= -->
+    <section id="portfolio" class="py-14 sm:py-18 mac:py-20">
+      <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-[820px]">
+          <h2 class="font-cal text-white text-[34px] leading-[1.06] tracking-[-0.02em]
+                     sm:text-[46px] lg:text-[56px] mac:text-[60px]">
+            Building Websites That<br class="hidden sm:block" />
+            Drive Results
+          </h2>
+          <p class="mt-4 text-[15px] sm:text-[16px] font-medium leading-[1.7] sm:leading-[1.75] text-white/75">
+            Click + drag (or swipe) through projects. It loops infinitely and always snaps perfectly centered.
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
           </p>
         </div>
 
-        <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-white px-5 py-2.5 font-inter text-[14px] font-medium text-[#2a4db7] hover:bg-white/90 transition">
-          Get a quote
+        <div class="mt-10">
+          <div id="premCarousel" class="relative overflow-hidden select-none rounded-3xl bg-white/8 ring-1 ring-white/12 glass
+                                       p-4 sm:p-6 mac:p-8 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+            <div id="premTrack" class="flex items-stretch gap-10 will-change-transform" style="transform: translate3d(0,0,0); touch-action: pan-y;">
+              <!-- Slide template: duplicate as many as you want -->
+              <article class="prem-slide shrink-0 w-[88vw] sm:w-[520px] mac:w-[580px] lg:w-[620px] transition-transform duration-300 will-change-transform">
+                <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-black/15 ring-1 ring-white/10">
+                  <img src="project1.png" alt="Project 1" class="absolute inset-0 h-full w-full object-contain object-center p-4 sm:p-5" />
+                  <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"></div>
+                </div>
+                <div class="mt-5">
+                  <p class="text-[14px] font-medium text-white/60">Landing Page</p>
+                  <h3 class="mt-1 font-cal text-[22px] leading-[1.15] text-white">DeFi Product — Home Experience</h3>
+                  <p class="mt-2 text-[15px] font-medium leading-[1.6] text-white/70">Sleek, conversion-focused layout with premium UI.</p>
+                </div>
+              </article>
+
+              <article class="prem-slide shrink-0 w-[88vw] sm:w-[520px] mac:w-[580px] lg:w-[620px] transition-transform duration-300 will-change-transform">
+                <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-black/15 ring-1 ring-white/10">
+                  <img src="project2.png" alt="Project 2" class="absolute inset-0 h-full w-full object-contain object-center p-4 sm:p-5" />
+                  <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"></div>
+                </div>
+                <div class="mt-5">
+                  <p class="text-[14px] font-medium text-white/60">Website</p>
+                  <h3 class="mt-1 font-cal text-[22px] leading-[1.15] text-white">Portfolio — Case Study Layout</h3>
+                  <p class="mt-2 text-[15px] font-medium leading-[1.6] text-white/70">Clean structure + hierarchy built for clarity.</p>
+                </div>
+              </article>
+
+              <article class="prem-slide shrink-0 w-[88vw] sm:w-[520px] mac:w-[580px] lg:w-[620px] transition-transform duration-300 will-change-transform">
+                <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-black/15 ring-1 ring-white/10">
+                  <img src="project3.png" alt="Project 3" class="absolute inset-0 h-full w-full object-contain object-center p-4 sm:p-5" />
+                  <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"></div>
+                </div>
+                <div class="mt-5">
+                  <p class="text-[14px] font-medium text-white/60">Framer Build</p>
+                  <h3 class="mt-1 font-cal text-[22px] leading-[1.15] text-white">App Launch — Visual System</h3>
+                  <p class="mt-2 text-[15px] font-medium leading-[1.6] text-white/70">Premium visuals that feel cohesive + modern.</p>
+                </div>
+              </article>
+            </div>
+
+            <div id="premDots" class="mt-6 flex items-center justify-center gap-2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROCESS ================= -->
+    <section id="process" class="py-14 sm:py-18 mac:py-20">
+      <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-[860px]">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[12px] font-medium text-white/75 ring-1 ring-white/15 glass">
+            <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
+            An Example Framer Project
+          </span>
+
+          <h2 class="mt-6 font-cal text-white text-[34px] leading-[1.06] tracking-[-0.02em]
+                     sm:text-[46px] lg:text-[56px] mac:text-[60px]">
+            Smooth &amp; Efficient<br class="hidden sm:block" />
+            Process
+          </h2>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-3">
+          <article class="rounded-3xl bg-white/10 ring-1 ring-white/12 glass p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-brandDeep/25 ring-1 ring-white/10 text-[12px] font-semibold text-white/85">01</span>
+            <h3 class="mt-5 font-cal text-[26px] sm:text-[28px] leading-[1.1] tracking-[-0.02em] text-white">Discovery &amp; Strategy</h3>
+            <p class="mt-4 text-[15px] font-medium leading-[1.7] text-white/72">
+              We align on goals, audience, and the offer — then map messaging + structure for conversions.
+            </p>
+            <div class="mt-6 relative overflow-hidden rounded-2xl bg-black/15 aspect-[16/10] ring-1 ring-white/10">
+              <img src="process-1.png" alt="Discovery & Strategy" class="absolute inset-0 h-full w-full object-cover object-center" />
+            </div>
+          </article>
+
+          <article class="rounded-3xl bg-white/10 ring-1 ring-white/12 glass p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/10 text-[12px] font-semibold text-white/85">02</span>
+            <h3 class="mt-5 font-cal text-[26px] sm:text-[28px] leading-[1.1] tracking-[-0.02em] text-white">Design &amp; Build</h3>
+            <p class="mt-4 text-[15px] font-medium leading-[1.7] text-white/72">
+              I design + build in Framer with fast feedback loops so everything stays clean and premium.
+            </p>
+            <div class="mt-6 relative overflow-hidden rounded-2xl bg-black/15 aspect-[16/10] ring-1 ring-white/10">
+              <img src="process-2.png" alt="Design & Build" class="absolute inset-0 h-full w-full object-cover object-center" />
+            </div>
+          </article>
+
+          <article class="rounded-3xl bg-white/10 ring-1 ring-white/12 glass p-7 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/10 text-[12px] font-semibold text-white/85">03</span>
+            <h3 class="mt-5 font-cal text-[26px] sm:text-[28px] leading-[1.1] tracking-[-0.02em] text-white">Handover Training</h3>
+            <p class="mt-4 text-[15px] font-medium leading-[1.7] text-white/72">
+              You’ll get access, a short walkthrough, and optional support so you’re confident post-launch.
+            </p>
+            <div class="mt-6 relative overflow-hidden rounded-2xl bg-black/15 aspect-[16/10] ring-1 ring-white/10">
+              <img src="process-3.png" alt="Handover Training" class="absolute inset-0 h-full w-full object-cover object-center" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="py-16 sm:py-20 mac:py-24">
+      <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div class="relative overflow-hidden rounded-3xl bg-white/10 ring-1 ring-white/12 glass shadow-[0_30px_90px_rgba(0,0,0,.30)]
+                    px-5 py-10 sm:px-10 sm:py-12 mac:px-14 mac:py-14">
+          <div class="pointer-events-none absolute -top-44 right-[-90px] h-[520px] w-[520px] rounded-full bg-brandDeep/18 blur-3xl"></div>
+          <div class="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
+
+          <h2 class="font-cal text-white text-[34px] leading-[1.06] tracking-[-0.02em]
+                     sm:text-[46px] lg:text-[56px] mac:text-[60px]">
+            Ready to build something<br class="hidden sm:block" />
+            that converts?
+          </h2>
+
+          <p class="mt-4 max-w-[800px] text-[15px] sm:text-[16px] font-medium leading-[1.7] sm:leading-[1.75] text-white/75">
+            Send a quick message with your niche + what you need. I’ll reply with next steps and a clean plan.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="#" class="inline-flex items-center justify-center rounded-xl bg-brandDeep px-6 py-3 text-[14px] font-medium text-white hover:opacity-95 transition">
+              Schedule a call
+            </a>
+            <a href="#" class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-[14px] font-medium text-brandDeep hover:bg-white/90 transition">
+              Email me
+            </a>
+          </div>
+        </div>
+
+        <p class="mt-10 text-center text-[13px] font-medium text-white/45">
+          © <span id="year"></span> byMedina. All rights reserved.
+        </p>
+      </div>
+    </section>
+  </div>
+  <!-- BENTO SECTION (byMedina-style) -->
+<section id="bento" class="relative py-16 sm:py-20 mac:py-24">
+  <div class="mx-auto max-w-[1240px] mac:max-w-[1320px] xl:max-w-[1440px] px-4 sm:px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="mx-auto max-w-[980px] text-center">
+      <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[12px] font-medium text-white/75 ring-1 ring-white/15 glass">
+        <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
+        What you get
+      </span>
+
+      <h2 class="mt-6 font-cal text-white text-[38px] leading-[1.05] tracking-[-0.02em]
+                 sm:text-[54px] md:text-[64px] mac:text-[66px]">
+        A premium site that<br class="hidden sm:block" />
+        converts.
+      </h2>
+
+      <p class="mx-auto mt-4 max-w-[820px] font-inter text-[15px] sm:text-[16px] font-medium leading-[1.7] sm:leading-[1.75] text-white/75">
+        No “template feel.” Clean design systems, fast performance, and intentional UX — built to look elite and drive results.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="mt-10 sm:mt-14 grid gap-5 lg:grid-cols-3 lg:grid-rows-2">
+      <!-- BIG LEFT (row span 2) -->
+      <article class="relative lg:row-span-2">
+        <div class="absolute inset-0 rounded-3xl bg-white/10 ring-1 ring-white/12 glass"></div>
+
+        <div class="relative h-full overflow-hidden rounded-3xl shadow-[0_30px_90px_rgba(0,0,0,.28)]">
+          <div class="p-7 sm:p-9">
+            <p class="font-cal text-[22px] sm:text-[24px] tracking-[-0.02em] text-white max-lg:text-center">
+              Mobile-first polish
+            </p>
+            <p class="mt-2 font-inter text-[14px] sm:text-[15px] font-medium leading-[1.7] text-white/72 max-lg:text-center">
+              Built to look insane on iPhone + MacBook. Smooth spacing, sharp type, and CTA placement that actually converts.
+            </p>
+          </div>
+
+          <!-- phone frame -->
+          <div class="relative px-6 pb-8 sm:px-10 sm:pb-10">
+            <div class="mx-auto w-full max-w-[420px]">
+              <div class="relative overflow-hidden rounded-[34px] bg-black/40 ring-1 ring-white/15">
+                <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/30"></div>
+
+                <!-- notch -->
+                <div class="absolute left-1/2 top-3 h-5 w-28 -translate-x-1/2 rounded-full bg-black/50 ring-1 ring-white/10"></div>
+
+                <div class="aspect-[9/16] p-3">
+                  <div class="h-full w-full overflow-hidden rounded-[26px] bg-black/30">
+                    <img src="bento-mobile.png" alt="Mobile preview" class="h-full w-full object-cover object-top" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- bottom sheen -->
+          <div class="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+        </div>
+      </article>
+
+      <!-- TOP MIDDLE -->
+      <article class="relative max-lg:order-1">
+        <div class="absolute inset-0 rounded-3xl bg-white/10 ring-1 ring-white/12 glass"></div>
+        <div class="relative overflow-hidden rounded-3xl p-7 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,.22)]">
+          <p class="font-cal text-[22px] sm:text-[24px] tracking-[-0.02em] text-white max-lg:text-center">
+            Speed + performance
+          </p>
+          <p class="mt-2 font-inter text-[14px] sm:text-[15px] font-medium leading-[1.7] text-white/72 max-lg:text-center">
+            Lightweight builds, clean structure, and motion that feels premium — without lag.
+          </p>
+
+          <div class="mt-6 overflow-hidden rounded-2xl bg-black/20 ring-1 ring-white/10">
+            <div class="aspect-[16/10]">
+              <img src="bento-speed.png" alt="Performance" class="h-full w-full object-cover object-center" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- BIG RIGHT (row span 2) -->
+      <article class="relative lg:row-span-2">
+        <div class="absolute inset-0 rounded-3xl bg-white/10 ring-1 ring-white/12 glass"></div>
+
+        <div class="relative h-full overflow-hidden rounded-3xl shadow-[0_30px_90px_rgba(0,0,0,.28)]">
+          <div class="p-7 sm:p-9">
+            <p class="font-cal text-[22px] sm:text-[24px] tracking-[-0.02em] text-white max-lg:text-center">
+              Framer systemized
+            </p>
+            <p class="mt-2 font-inter text-[14px] sm:text-[15px] font-medium leading-[1.7] text-white/72 max-lg:text-center">
+              Components, styles, and sections built like a real design system — so updates are fast and consistent.
+            </p>
+          </div>
+
+          <!-- “editor” frame -->
+          <div class="px-6 pb-8 sm:px-10 sm:pb-10">
+            <div class="relative overflow-hidden rounded-2xl bg-black/30 ring-1 ring-white/12">
+              <div class="flex items-center gap-2 border-b border-white/10 bg-black/25 px-4 py-3">
+                <span class="h-2.5 w-2.5 rounded-full bg-white/30"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-white/10"></span>
+                <p class="ml-3 text-[12px] font-medium text-white/60">Framer Components</p>
+              </div>
+
+              <div class="aspect-[16/11]">
+                <img src="bento-framer.png" alt="Framer build system" class="h-full w-full object-cover object-center" />
+              </div>
+
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"></div>
+            </div>
+          </div>
+
+          <div class="pointer-events-none absolute -bottom-28 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-brandDeep/18 blur-3xl"></div>
+        </div>
+      </article>
+
+      <!-- BOTTOM MIDDLE -->
+      <article class="relative lg:col-start-2 lg:row-start-2">
+        <div class="absolute inset-0 rounded-3xl bg-white/10 ring-1 ring-white/12 glass"></div>
+        <div class="relative overflow-hidden rounded-3xl p-7 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,.22)]">
+          <p class="font-cal text-[22px] sm:text-[24px] tracking-[-0.02em] text-white max-lg:text-center">
+            SEO-ready foundation
+          </p>
+          <p class="mt-2 font-inter text-[14px] sm:text-[15px] font-medium leading-[1.7] text-white/72 max-lg:text-center">
+            Clean layout hierarchy + best-practice structure so you can rank and scale content.
+          </p>
+
+          <div class="mt-6 overflow-hidden rounded-2xl bg-black/20 ring-1 ring-white/10">
+            <div class="aspect-[16/9]">
+              <img src="bento-seo.png" alt="SEO" class="h-full w-full object-cover object-center" />
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href="#portfolio" class="inline-flex items-center justify-center rounded-xl bg-brandDeep px-6 py-3 text-[14px] font-medium text-white shadow-sm hover:opacity-95 transition">
+        Explore my work
+      </a>
+      <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-[14px] font-medium text-brandDeep shadow-sm hover:bg-white/90 transition">
+        Schedule a call
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE BUILD PREVIEW (replaces the old section) -->
+<section id="preview" class="relative overflow-hidden bg-[#0b1220] py-16 sm:py-20">
+  <!-- soft glow -->
+  <div class="pointer-events-none absolute -top-44 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#2a4db7]/18 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-52 left-16 h-[520px] w-[520px] rounded-full bg-white/10 blur-3xl"></div>
+
+  <!-- dot grid (macbook safe svg) -->
+  <div class="pointer-events-none absolute inset-0 opacity-[0.18]">
+    <div class="absolute inset-0 dotgrid"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0b1220]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+      <!-- LEFT -->
+      <div>
+        <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[12px] font-medium text-white/75 ring-1 ring-white/15 glass">
+          <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
+          How it comes together
+        </span>
+
+        <h2 class="mt-6 font-cal text-white text-[38px] leading-[1.05] tracking-[-0.02em]
+                   sm:text-[54px] md:text-[64px]">
+          Your website,<br class="hidden sm:block" />
+          built like a system.
+        </h2>
+
+        <p class="mt-4 max-w-[620px] font-inter text-[15px] sm:text-[16px] font-medium leading-[1.75] text-white/75">
+          Not a one-off design. A clean structure, reusable components, and a layout that stays premium as you scale.
+        </p>
+
+        <!-- steps -->
+        <div class="mt-8 space-y-4">
+          <div class="rounded-2xl bg-white/10 ring-1 ring-white/12 glass px-5 py-4">
+            <p class="font-inter text-[12px] font-medium text-white/55">01</p>
+            <p class="mt-1 font-cal text-[20px] tracking-[-0.02em] text-white">Message that hits instantly</p>
+            <p class="mt-1 font-inter text-[14px] sm:text-[15px] font-medium leading-[1.65] text-white/70">
+              Your offer + CTA are positioned so people understand and act fast.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-white/10 ring-1 ring-white/12 glass px-5 py-4">
+            <p class="font-inter text-[12px] font-medium text-white/55">02</p>
+            <p class="mt-1 font-cal text-[20px] tracking-[-0.02em] text-white">Design system + components</p>
+            <p class="mt-1 font-inter text-[14px] sm:text-[15px] font-medium leading-[1.65] text-white/70">
+              Consistent typography, spacing, and section patterns — no messy pages.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-white/10 ring-1 ring-white/12 glass px-5 py-4">
+            <p class="font-inter text-[12px] font-medium text-white/55">03</p>
+            <p class="mt-1 font-cal text-[20px] tracking-[-0.02em] text-white">Built to load fast + convert</p>
+            <p class="mt-1 font-inter text-[14px] sm:text-[15px] font-medium leading-[1.65] text-white/70">
+              Clean structure and performance-first choices so it feels premium.
+            </p>
+          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="mt-8 flex flex-col sm:flex-row items-center gap-3">
+          <a href="#portfolio"
+             class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-[#2a4db7] px-6 py-3 text-[14px] font-medium text-white shadow-sm hover:opacity-95 transition">
+            Explore my work
+          </a>
+          <a href="#contact"
+             class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-[14px] font-medium text-[#2a4db7] shadow-sm hover:bg-white/90 transition">
+            Schedule a call
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: “Framer window” preview -->
+      <div class="relative">
+        <div class="rounded-3xl bg-white/10 ring-1 ring-white/12 glass shadow-[0_30px_90px_rgba(0,0,0,.28)] overflow-hidden">
+          <!-- top bar -->
+          <div class="flex items-center justify-between border-b border-white/10 bg-black/20 px-4 py-3">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-white/20"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-white/15"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-white/10"></span>
+              <span class="ml-3 text-[12px] font-medium text-white/55">Live preview</span>
+            </div>
+
+            <!-- tabs -->
+            <div class="flex items-center gap-2 text-[12px] font-medium">
+              <button data-tab="home"
+                class="tabBtn rounded-full bg-white/10 px-3 py-1 text-white/80 ring-1 ring-white/15 hover:bg-white/15 transition">
+                Home
+              </button>
+              <button data-tab="about"
+                class="tabBtn rounded-full bg-white/10 px-3 py-1 text-white/80 ring-1 ring-white/15 hover:bg-white/15 transition">
+                About
+              </button>
+              <button data-tab="work"
+                class="tabBtn rounded-full bg-white/10 px-3 py-1 text-white/80 ring-1 ring-white/15 hover:bg-white/15 transition">
+                Work
+              </button>
+            </div>
+          </div>
+
+          <!-- preview area -->
+          <div class="p-5 sm:p-6">
+            <div class="relative rounded-2xl bg-black/25 ring-1 ring-white/10 overflow-hidden">
+              <!-- swap images here -->
+              <img id="previewImg" src="preview-home.png" alt="Preview"
+                   class="h-[320px] sm:h-[360px] w-full object-cover object-top transition-opacity duration-200" />
+
+              <!-- bottom overlay -->
+              <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+
+            <!-- tiny caption -->
+            <p id="previewCaption" class="mt-4 text-center font-inter text-[13px] font-medium text-white/60">
+              Home — hero + CTA structure that converts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .glass { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .dotgrid{
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.22)'/%3E%3C/svg%3E");
+      background-size: 28px 28px;
+      background-position: center;
+    }
+  </style>
+
+  <script>
+    (function(){
+      const img = document.getElementById("previewImg");
+      const cap = document.getElementById("previewCaption");
+      const btns = document.querySelectorAll(".tabBtn");
+      if(!img || !cap || !btns.length) return;
+
+      const map = {
+        home: { src: "preview-home.png", caption: "Home — hero + CTA structure that converts." },
+        about:{ src: "preview-about.png", caption: "About — trust-building layout with clean hierarchy." },
+        work: { src: "preview-work.png", caption: "Work — portfolio that snaps attention and proves quality." }
+      };
+
+      function setActive(activeKey){
+        btns.forEach(b=>{
+          const on = b.dataset.tab === activeKey;
+          b.style.backgroundColor = on ? "rgba(255,255,255,.22)" : "rgba(255,255,255,.10)";
+          b.style.color = on ? "rgba(255,255,255,.95)" : "rgba(255,255,255,.80)";
+        });
+      }
+
+      btns.forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const key = btn.dataset.tab;
+          const next = map[key];
+          if(!next) return;
+
+          img.style.opacity = "0.25";
+          setTimeout(()=>{
+            img.src = next.src;
+            cap.textContent = next.caption;
+            img.onload = ()=> (img.style.opacity = "1");
+            setActive(key);
+          }, 120);
+        });
+      });
+
+      setActive("home");
+    })();
+  </script>
+</section>
+<!-- CONTACT (premium, macbook + mobile) -->
+<section id="contact" class="relative overflow-hidden bg-[#0b1220] py-16 sm:py-20">
+  <!-- glows -->
+  <div class="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#2a4db7]/18 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-52 right-10 h-[520px] w-[520px] rounded-full bg-white/10 blur-3xl"></div>
+
+  <!-- dots -->
+  <div class="pointer-events-none absolute inset-0 opacity-[0.16]">
+    <div class="absolute inset-0 dotgrid"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0b1220]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-[980px] text-center">
+      <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-[12px] font-medium text-white/75 ring-1 ring-white/15 glass">
+        <span class="inline-block h-2 w-2 rounded-full bg-white/70"></span>
+        Contact
+      </span>
+
+      <h2 class="mt-6 font-cal text-white text-[38px] leading-[1.05] tracking-[-0.02em]
+                 sm:text-[54px] md:text-[64px]">
+        Let’s build something<br class="hidden sm:block" />
+        that converts.
+      </h2>
+
+      <p class="mx-auto mt-4 max-w-[760px] font-inter text-[15px] sm:text-[16px] font-medium leading-[1.75] text-white/75">
+        Tell me a bit about what you’re building. I’ll reply with next steps and a couple quick recommendations.
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-5 lg:items-stretch">
+      <!-- LEFT INFO -->
+      <aside class="lg:col-span-2 rounded-3xl bg-white/10 ring-1 ring-white/12 glass p-6 sm:p-7 shadow-[0_30px_90px_rgba(0,0,0,.28)]">
+        <h3 class="font-cal text-[22px] tracking-[-0.02em] text-white">What to include</h3>
+
+        <ul class="mt-4 space-y-3 font-inter text-[14px] sm:text-[15px] font-medium text-white/72 leading-[1.7]">
+          <li class="flex gap-3">
+            <span class="mt-1 inline-block h-2 w-2 rounded-full bg-white/60"></span>
+            Your business + what you sell
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-1 inline-block h-2 w-2 rounded-full bg-white/60"></span>
+            A link to your current site (if you have one)
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-1 inline-block h-2 w-2 rounded-full bg-white/60"></span>
+            Your deadline / when you want to launch
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-1 inline-block h-2 w-2 rounded-full bg-white/60"></span>
+            Any examples of sites you like
+          </li>
+        </ul>
+
+        <div class="mt-6 rounded-2xl bg-black/20 ring-1 ring-white/10 p-5">
+          <p class="font-inter text-[12px] font-medium text-white/55">Fastest option</p>
+          <p class="mt-2 font-cal text-[20px] tracking-[-0.02em] text-white">Schedule a call</p>
+          <p class="mt-1 font-inter text-[14px] font-medium text-white/70 leading-[1.65]">
+            If you prefer, book a quick call and I’ll walk you through the plan live.
+          </p>
+          <a href="#"
+             class="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-white px-5 py-2.5 text-[14px] font-medium text-[#2a4db7] hover:bg-white/90 transition">
+            Schedule a call
+          </a>
+        </div>
+      </aside>
+
+      <!-- FORM -->
+      <div class="lg:col-span-3 rounded-3xl bg-white/10 ring-1 ring-white/12 glass p-6 sm:p-7 shadow-[0_30px_90px_rgba(0,0,0,.28)]">
+        <form id="contactForm" class="space-y-4">
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="block font-inter text-[13px] font-medium text-white/70 mb-2">Name</label>
+              <input
+                name="name"
+                type="text"
+                required
+                placeholder="Your name"
+                class="w-full rounded-xl bg-black/20 ring-1 ring-white/10 px-4 py-3 text-white placeholder:text-white/35
+                       outline-none focus:ring-2 focus:ring-white/25 transition"
+              />
+            </div>
+
+            <div>
+              <label class="block font-inter text-[13px] font-medium text-white/70 mb-2">Email</label>
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder="you@email.com"
+                class="w-full rounded-xl bg-black/20 ring-1 ring-white/10 px-4 py-3 text-white placeholder:text-white/35
+                       outline-none focus:ring-2 focus:ring-white/25 transition"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-inter text-[13px] font-medium text-white/70 mb-2">What do you need?</label>
+            <select
+              name="service"
+              class="w-full rounded-xl bg-black/20 ring-1 ring-white/10 px-4 py-3 text-white
+                     outline-none focus:ring-2 focus:ring-white/25 transition"
+            >
+              <option class="bg-[#0b1220]" value="Framer Website">Framer Website</option>
+              <option class="bg-[#0b1220]" value="Framer + Shopify">Framer x Shopify</option>
+              <option class="bg-[#0b1220]" value="Landing Page">Landing Page</option>
+              <option class="bg-[#0b1220]" value="Not sure yet">Not sure yet</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-inter text-[13px] font-medium text-white/70 mb-2">Project details</label>
+            <textarea
+              name="message"
+              rows="5"
+              required
+              placeholder="Tell me your goals, timeline, and any links…"
+              class="w-full rounded-xl bg-black/20 ring-1 ring-white/10 px-4 py-3 text-white placeholder:text-white/35
+                     outline-none focus:ring-2 focus:ring-white/25 transition resize-none"
+            ></textarea>
+          </div>
+
+          <div class="grid gap-3 sm:grid-cols-2 sm:items-center">
+            <button
+              type="submit"
+              class="inline-flex w-full items-center justify-center rounded-xl bg-[#2a4db7] px-6 py-3 text-[14px] font-medium text-white shadow-sm hover:opacity-95 transition"
+            >
+              Send message
+            </button>
+
+            <p id="formStatus" class="text-center sm:text-left font-inter text-[13px] font-medium text-white/55">
+              Replies typically within 24 hours.
+            </p>
+          </div>
+
+          <p class="font-inter text-[12px] font-medium text-white/45 leading-[1.6]">
+            By submitting, you agree to be contacted about your project. No spam.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .glass { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .dotgrid{
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.22)'/%3E%3C/svg%3E");
+      background-size: 28px 28px;
+      background-position: center;
+    }
+  </style>
+
+  <script>
+    // NOTE: This is just a nice UX stub (no backend).
+    // Wire it to Formspree / Getform / your server later.
+    (function(){
+      const form = document.getElementById("contactForm");
+      const status = document.getElementById("formStatus");
+      if(!form || !status) return;
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        status.textContent = "Sent! I’ll reply soon.";
+        status.className = "text-center sm:text-left font-inter text-[13px] font-medium text-white/80";
+        form.reset();
+      });
+    })();
+  </script>
+</section>
+
+
+<!-- FOOTER (clean + premium) -->
+<footer class="relative overflow-hidden bg-[#0b1220]">
+  <!-- top divider glow -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+
+  <div class="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+      <!-- brand -->
+      <div class="flex items-center justify-between gap-4">
+        <a href="#top" class="flex items-center gap-2">
+          <img src="logo.png" alt="byMedina logo" class="h-7 w-auto" />
+          <span class="font-cal text-[16px] text-white/90">byMedina</span>
         </a>
       </div>
 
+<<<<<<< HEAD
       <div class="mt-10 grid gap-6 lg:grid-cols-2">
         <article data-reveal class="reveal rounded-3xl bg-white/8 ring-1 ring-white/12 backdrop-blur-xl p-8 shadow-[0_30px_90px_rgba(0,0,0,.25)]">
           <div class="flex items-center gap-3">
@@ -334,10 +1308,34 @@
             Ask about this
           </a>
         </article>
+=======
+      <!-- links -->
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[14px] font-medium text-white/65">
+        <a class="hover:text-white transition" href="#about">About</a>
+        <a class="hover:text-white transition" href="#portfolio">Portfolio</a>
+        <a class="hover:text-white transition" href="#process">Process</a>
+        <a class="hover:text-white transition" href="#contact">Contact</a>
+      </nav>
+
+      <!-- socials -->
+      <div class="flex items-center justify-center gap-3">
+        <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/12 hover:bg-white/15 transition">
+          <span class="font-inter text-[13px] font-semibold text-white/80">Be</span>
+        </a>
+        <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/12 hover:bg-white/15 transition">
+          <span class="font-inter text-[13px] font-semibold text-white/80">in</span>
+        </a>
+        <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/12 hover:bg-white/15 transition">
+          <svg class="h-5 w-5 text-white/80" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4.5 7.5h15v10h-15z" stroke="currentColor" stroke-width="1.8" />
+            <path d="M5.2 8.2 12 13l6.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
       </div>
     </div>
-  </section>
 
+<<<<<<< HEAD
   <!-- PORTFOLIO -->
   <section id="portfolio" class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
@@ -393,9 +1391,20 @@
           <div id="premDots" class="mt-6 flex items-center justify-center gap-2"></div>
         </div>
       </div>
-    </div>
-  </section>
+=======
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <p class="font-inter text-[13px] font-medium text-white/45">
+        © <span id="year"></span> byMedina. All rights reserved.
+      </p>
 
+      <p class="font-inter text-[13px] font-medium text-white/45">
+        Designed in Figma • Built in Framer
+      </p>
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
+    </div>
+  </div>
+
+<<<<<<< HEAD
   <!-- PROCESS -->
   <section id="process" class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
@@ -570,6 +1579,20 @@
 
   <!-- ====== SCRIPTS ====== -->
 
+=======
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</footer>
+
+  <!-- ================= SCRIPTS ================= -->
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Mobile menu -->
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
   <script>
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -583,12 +1606,16 @@
       if (!btn || !menu) return;
 
       btn.addEventListener("click", () => {
-        const isOpen = menu.classList.contains("hidden") === false;
+        const isOpen = !menu.classList.contains("hidden");
         menu.classList.toggle("hidden");
         btn.setAttribute("aria-expanded", String(!isOpen));
       });
 
+<<<<<<< HEAD
       // close on link tap
+=======
+      // close menu when clicking a link
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
       menu.querySelectorAll("a").forEach(a => {
         a.addEventListener("click", () => {
           menu.classList.add("hidden");
@@ -666,6 +1693,10 @@
     })();
   </script>
 
+<<<<<<< HEAD
+=======
+  <!-- Premium transform carousel (drag, snap, infinite loop, starts centered on slide 2) -->
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
   <script>
     // Premium transform carousel (unchanged)
     (() => {
@@ -678,10 +1709,9 @@
       const realCount = slides.length;
       if (realCount < 2) return;
 
+      // clones for loop
       const firstClone = slides[0].cloneNode(true);
       const lastClone = slides[realCount - 1].cloneNode(true);
-      firstClone.dataset.clone = "1";
-      lastClone.dataset.clone = "1";
       track.insertBefore(lastClone, slides[0]);
       track.appendChild(firstClone);
       slides = Array.from(track.querySelectorAll(".prem-slide"));
@@ -752,6 +1782,10 @@
         return best;
       }
 
+<<<<<<< HEAD
+=======
+      // dots for real slides
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
       const dots = [];
       dotsWrap.innerHTML = "";
       for (let i = 0; i < realCount; i++) {
@@ -769,7 +1803,7 @@
         if (index === realCount + 1) realIdx = 0;
 
         dots.forEach((d, i) => {
-          d.style.backgroundColor = i === realIdx ? "rgba(255,255,255,.8)" : "rgba(255,255,255,.25)";
+          d.style.backgroundColor = i === realIdx ? "rgba(255,255,255,.85)" : "rgba(255,255,255,.25)";
           d.style.transform = i === realIdx ? "scale(1.15)" : "scale(1)";
         });
 
@@ -818,6 +1852,7 @@
       carousel.addEventListener("pointercancel", endDrag);
       carousel.addEventListener("mouseleave", endDrag);
 
+      // keyboard
       window.addEventListener("keydown", (e) => {
         if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
         index += (e.key === "ArrowRight") ? 1 : -1;
@@ -829,6 +1864,10 @@
         updateActiveUI();
       });
 
+<<<<<<< HEAD
+=======
+      // resize recenter
+>>>>>>> 29d8567e30d4d55b2e1da93abc3616a6810dd016
       let t = null;
       window.addEventListener("resize", () => {
         clearTimeout(t);
